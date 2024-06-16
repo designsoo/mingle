@@ -3,16 +3,40 @@ module.exports = {
   env: { browser: true, es2020: true },
   extends: [
     'eslint:recommended',
+    'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  plugins: ['react', 'react-refresh', 'eslint-plugin-import', '@typescript-eslint'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
+    'react/prop-types': 'off',
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', 'internal', ['parent', 'sibling'], 'object', 'unknown', 'index'],
+        pathGroups: [
+          { pattern: 'react', group: 'external', position: 'before' },
+          { pattern: 'react/**', group: 'external', position: 'before' },
+          { pattern: '@pages/**', group: 'unknown' },
+          { pattern: '@api/**', group: 'unknown' },
+          { pattern: '@components/**', group: 'unknown' },
+          { pattern: '@types/**', group: 'unknown' },
+          { pattern: '@constants/**', group: 'unknown' },
+          { pattern: '@utils/**', group: 'unknown' },
+          { pattern: '@hooks/**', group: 'unknown' },
+          { pattern: './**', group: 'index' },
+        ],
+        pathGroupsExcludedImportTypes: ['builtin'],
+        'newlines-between': 'always',
+        alphabetize: { order: 'asc', caseInsensitive: true },
+      },
     ],
   },
-}
+};
