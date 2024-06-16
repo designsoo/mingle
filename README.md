@@ -1,30 +1,24 @@
-# React + TypeScript + Vite
+# Mingle
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<img width="1920" alt="cover" src="https://github.com/designsoo/mingle/assets/77719310/70de7334-1d34-4a6e-a1aa-e0569acb9676">
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project focuses on transforming and refactoring the “Rolling” service into the new “Mingle” service, incorporating new features and enhancements. The update is being carried out in collaboration with the <a href='https://github.com/designsoo/mingle-ui' target='_blank' >"Mingle-ui"</a> design system to ensure a consistent and modern user interface.
 
-## Expanding the ESLint configuration
+# Key Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+**React Query**
+- Simplified server state management by using React Query.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+**TypeScript**
+- Enhanced code stability and maintainability through static type checking.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+**Tailwind CSS**
+- Helps maintain a consistent design system and contributes to performance improvement with optimized CSS file sizes.
+
+**Mingle Design System**
+- Improved user experience with a consistent design system and increased development speed and maintainability through reusable UI components.
+
+**Improved SEO, Accessibility, and Performance**
+- Improved search engine optimization, accessibility compliance, and overall performance for a better user experience.
