@@ -56,6 +56,7 @@ const BackgroundImageOptions = ({ imageList, selectedImage, onClick }: Backgroun
     }
 
     setPreviewImage(imagePreviewUrl);
+    onClick('user-image', imagePreviewUrl);
   };
 
   return (
