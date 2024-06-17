@@ -2,13 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   * {
     @apply m-0 box-border p-0;
   }
 
   body {
-    @apply bg-neutral-950  text-neutral-200;
+    @apply bg-neutral-950 font-jakarta text-neutral-200;
+  }
+
+  legend {
+    display: none;
+  }
+}
+
+@layer components {
+  .board-card-inner {
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(30px);
+  }
+
+  .header-background {
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(100px);
+  }
+  .option-background-gradient-yellow {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 30%, rgba(245, 231, 36, 0.8) 100%);
+  }
+}
+
+@layer utilities {
+  .visually-hidden {
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+
+    &:not(caption) {
+      position: absolute !important;
+    }
+  }
+
+  .base-transition {
+    @apply transition-all duration-300 ease-in-out;
   }
 }
