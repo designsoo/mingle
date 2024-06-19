@@ -11,4 +11,18 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.cloudflare.com/client/v4/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+      '/image': {
+        target: 'https://upload.imagedelivery.net',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/image/, ''),
+      },
+    },
+  },
 });
