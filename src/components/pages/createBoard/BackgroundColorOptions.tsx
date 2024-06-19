@@ -1,12 +1,13 @@
 type ColorList = {
   id: string;
+  type: string;
   value: string;
 };
 
 interface BackgroundColorOptionsProps {
   colorList: ColorList[];
   selectedImage: string;
-  onClick: (id: string, value: string) => void;
+  onClick: (id: string, value: string, type: string) => void;
 }
 
 const BackgroundColorOptions = ({ colorList, selectedImage, onClick }: BackgroundColorOptionsProps) => {
@@ -16,7 +17,7 @@ const BackgroundColorOptions = ({ colorList, selectedImage, onClick }: Backgroun
         <li key={`color-option-${color.id}`} className='w-full'>
           <button
             type='button'
-            onClick={() => onClick(color.id, color.value)}
+            onClick={() => onClick(color.id, color.value, color.type)}
             style={{
               backgroundImage: `url(${color.value})`,
               backgroundRepeat: 'no-repeat',
