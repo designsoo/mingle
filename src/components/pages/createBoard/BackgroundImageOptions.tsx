@@ -2,8 +2,7 @@ import { useRef, useState } from 'react';
 
 import { SVGS } from '@/constants';
 
-const CLOUDFLARE_ID = import.meta.env.VITE_CLOUDFLARE_ACCOUNT_ID;
-const CLOUDFLARE_TOKEN = import.meta.env.VITE_CLOUDFLARE_TOKEN;
+import { getUploadUrl } from '@/pages/CreateBoard/service/cloudflareImageService';
 
 const {
   add: { url, alt },
@@ -11,32 +10,30 @@ const {
 
 type ImageList = {
   id: string;
+  type: string;
   value: string;
 };
 
 interface BackgroundImageOptionsProps {
   imageList: ImageList[];
   selectedImage: string;
-  onClick: (id: string, value: string) => void;
+  onClick: (id: string, value: string, type: string) => void;
+  setFile: (file: File | null) => void;
+  setUploadUrl: (url: string) => void;
 }
 
-export const getUploadUrl = async () => {
-  const response = await (
-    await fetch(`https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ID}/images/v2/direct_upload`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${CLOUDFLARE_TOKEN}`,
-      },
-    })
-  ).json();
-  return response;
-};
-
-const BackgroundImageOptions = ({ imageList, selectedImage, onClick }: BackgroundImageOptionsProps) => {
+const BackgroundImageOptions = ({
+  imageList,
+  selectedImage,
+  onClick,
+  setFile,
+  setUploadUrl,
+}: BackgroundImageOptionsProps) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { files },
     } = event;
@@ -44,19 +41,35 @@ const BackgroundImageOptions = ({ imageList, selectedImage, onClick }: Backgroun
     if (!files) return;
     const file = files[0];
 
-    // 이미지 미리보기
     const imagePreviewUrl = URL.createObjectURL(file);
 
     if (previewImage) {
       URL.revokeObjectURL(previewImage);
     }
 
+    setPreviewImage(imagePreviewUrl);
+    setFile(file);
+    onClick('custom-image', imagePreviewUrl, 'backgroundImageURL');
+
+    // CDN 서버에서 URL 받아오기
+    const { success, result } = await getUploadUrl();
+
+    if (success) {
+      const { id } = result;
+      setUploadUrl(id);
+    }
+
     if (inputRef.current) {
       inputRef.current.value = '';
     }
+  };
 
-    setPreviewImage(imagePreviewUrl);
-    onClick('user-image', imagePreviewUrl);
+  const handleButtonClick = (id: string, value: string, type: string) => {
+    setPreviewImage(value);
+    // 기본 이미지 선택 시 file 정보를 초기화
+    setFile(null);
+    setUploadUrl('');
+    onClick(id, value, type);
   };
 
   return (
@@ -70,7 +83,7 @@ const BackgroundImageOptions = ({ imageList, selectedImage, onClick }: Backgroun
       {imageList.map((image) => (
         <li key={`image-option-${image.id}`} className='w-full'>
           <button
-            onClick={() => onClick(image.id, image.value)}
+            onClick={() => handleButtonClick(image.id, image.value, image.type)}
             type='button'
             style={{
               backgroundImage: `url(${image.value})`,
