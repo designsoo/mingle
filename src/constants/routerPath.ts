@@ -1,4 +1,5 @@
 export const ROUTER_PATH = {
-  createBoard: '/post',
   landing: '/',
+  boardList: '/list',
+  createBoard: '/post',
 };
