@@ -2,46 +2,77 @@ import { useState } from 'react';
 
 import { InputField, PrimaryButton, TabList } from 'mingle-ui';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { PAPER_BACKGROUND_COLORS, PAPER_BACKGROUND_IMAGES, TAB_LIST } from '@/constants';
 
 import BackgroundColorOptions from '@/components/pages/createBoard/BackgroundColorOptions';
 import BackgroundImageOptions from '@/components/pages/createBoard/BackgroundImageOptions';
 import Header from '@/components/ui/Header';
+import { checkUploadStatus, uploadImageCloudflare } from '@/pages/CreateBoard/service/cloudflareImageService';
+import { useCreateBoard } from '@/pages/CreateBoard/service/useCreateBoard';
 
 const DELIMITER = '&iquest';
+
+type FormValues = {
+  name: string;
+  backgroundColor: string;
+  backgroundImageURL: null | string;
+};
 
 const CreateBoard = () => {
   const methods = useForm({
     mode: 'all',
   });
-
   const { control, handleSubmit, getValues } = methods;
-
-  const toName = useWatch({
+  const name = useWatch({
     control: control,
     name: 'name',
   });
 
+  const navigate = useNavigate();
+  const { postFormMutation } = useCreateBoard(navigate);
+
   const [selectedTab, setSelectedTab] = useState(TAB_LIST[0].id);
   const [selectedOption, setSelectedOption] = useState(PAPER_BACKGROUND_COLORS[0].id);
   const [preview, setPreview] = useState(PAPER_BACKGROUND_COLORS[0].value);
+  const [file, setFile] = useState<File | null>(null);
+  const [uploadUrl, setUploadUrl] = useState('');
+  const [formData, setFormData] = useState<FormValues>({
+    name: '',
+    backgroundColor: 'blue',
+    backgroundImageURL: null,
+  });
 
-  const handleImageClick = (id: string, value: string) => {
+  const handleImageClick = (id: string, value: string, type: string) => {
     setSelectedOption(id);
     setPreview(value);
+    setFormData((prev) => ({
+      ...prev,
+      [type]: type === 'backgroundColor' ? id : value,
+    }));
   };
 
-  const onSubmit = () => {
-    const name = getValues('name');
+  const onSubmit = async () => {
+    const toName = getValues('name');
     const password = getValues('password');
     const newName = [name, password].join(DELIMITER);
-
-    const newForm = {
-      name: newName,
-      backgroundImageURL: preview,
+    const updatedFormData = {
+      ...formData,
+      name: password ? newName : toName,
     };
-    console.log(newForm);
+
+    if (file) {
+      const uploadResponse = await uploadImageCloudflare(file, uploadUrl);
+      if (!uploadResponse.ok) return;
+
+      const checkResponse = await checkUploadStatus(uploadUrl);
+      const imageUrl = checkResponse.result.variants[0];
+
+      updatedFormData.backgroundImageURL = imageUrl;
+    }
+
+    postFormMutation(updatedFormData);
   };
 
   return (
@@ -65,7 +96,7 @@ const CreateBoard = () => {
                 >
                   <div className='board-card-inner flex h-[130px] flex-col justify-between p-3'>
                     <div className='flex flex-col gap-1'>
-                      <h4 className='h-7 text-bold-20'>{toName}</h4>
+                      <h4 className='h-7 text-bold-20'>{name}</h4>
                       <span className='text-base-16'>0개의 메시지가 작성됐어요!</span>
                     </div>
                     <div className='w-full rounded-full py-2 flexbox-row-center color-background-opacity-black-30'>
@@ -75,7 +106,7 @@ const CreateBoard = () => {
                 </div>
               </div>
 
-              <fieldset className='flex w-full flex-grow flex-col gap-6 md:pt-[3rem]'>
+              <fieldset className='flex w-full flex-grow flex-col gap-7 md:pt-[3rem]'>
                 <legend>mingle | create board</legend>
                 <InputField
                   formMethod={methods}
@@ -108,6 +139,8 @@ const CreateBoard = () => {
                   imageList={PAPER_BACKGROUND_IMAGES}
                   selectedImage={selectedOption}
                   onClick={handleImageClick}
+                  setFile={setFile}
+                  setUploadUrl={setUploadUrl}
                 />
               ) : (
                 <BackgroundColorOptions
