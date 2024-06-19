@@ -1,19 +1,47 @@
-const CLOUDFLARE_URL = import.meta.env.VITE_CLOUDFLARE_URL;
+export const CLOUDFLARE_URL = import.meta.env.VITE_CLOUDFLARE_URL;
 
-const PREVIEW_PAPER_SIZE = 'width=600,height=800';
-const ICON_SIZE_24 = 'width=24,height=24';
+export const PREVIEW_PAPER_SIZE = 'width=600,height=800';
+export const ICON_SIZE_24 = 'width=24,height=24';
 
 export const PAPER_BACKGROUND_COLORS = [
-  { id: 'bg-blue', value: `${CLOUDFLARE_URL}/8a482541-9f00-429f-cff7-2b90fc4d0400/${PREVIEW_PAPER_SIZE}` },
-  { id: 'bg-purple', value: `${CLOUDFLARE_URL}/c69924f8-98e5-45bc-ccae-065cce04a500/${PREVIEW_PAPER_SIZE}` },
-  { id: 'bg-pink', value: `${CLOUDFLARE_URL}/9faebeef-e89a-40ec-5a23-703d32e95000/${PREVIEW_PAPER_SIZE}` },
-  { id: 'bg-orange', value: `${CLOUDFLARE_URL}/dc6b7cff-ba50-4674-dff4-e092f38a6700/${PREVIEW_PAPER_SIZE}` },
+  {
+    id: 'blue',
+    type: 'backgroundColor',
+    value: `${CLOUDFLARE_URL}/8a482541-9f00-429f-cff7-2b90fc4d0400/${PREVIEW_PAPER_SIZE}`,
+  },
+  {
+    id: 'purple',
+    type: 'backgroundColor',
+    value: `${CLOUDFLARE_URL}/c69924f8-98e5-45bc-ccae-065cce04a500/${PREVIEW_PAPER_SIZE}`,
+  },
+  {
+    id: 'green',
+    type: 'backgroundColor',
+    value: `${CLOUDFLARE_URL}/9faebeef-e89a-40ec-5a23-703d32e95000/${PREVIEW_PAPER_SIZE}`,
+  },
+  {
+    id: 'beige',
+    type: 'backgroundColor',
+    value: `${CLOUDFLARE_URL}/dc6b7cff-ba50-4674-dff4-e092f38a6700/${PREVIEW_PAPER_SIZE}`,
+  },
 ];
 
 export const PAPER_BACKGROUND_IMAGES = [
-  { id: 'pika', value: `${CLOUDFLARE_URL}/278f93ac-551e-4d82-6dd3-5b67513c2e00/${PREVIEW_PAPER_SIZE}` },
-  { id: 'mario', value: `${CLOUDFLARE_URL}/f8ae48ac-8723-47a6-bd1e-63e4aa0ecb00/${PREVIEW_PAPER_SIZE}` },
-  { id: 'kirby', value: `${CLOUDFLARE_URL}/3b972292-c529-4cf5-ab05-7e228ec32a00/${PREVIEW_PAPER_SIZE}` },
+  {
+    id: 'pika',
+    type: 'backgroundImageURL',
+    value: `${CLOUDFLARE_URL}/278f93ac-551e-4d82-6dd3-5b67513c2e00/${PREVIEW_PAPER_SIZE}`,
+  },
+  {
+    id: 'mario',
+    type: 'backgroundImageURL',
+    value: `${CLOUDFLARE_URL}/f8ae48ac-8723-47a6-bd1e-63e4aa0ecb00/${PREVIEW_PAPER_SIZE}`,
+  },
+  {
+    id: 'kirby',
+    type: 'backgroundImageURL',
+    value: `${CLOUDFLARE_URL}/3b972292-c529-4cf5-ab05-7e228ec32a00/${PREVIEW_PAPER_SIZE}`,
+  },
 ];
 
 export const SVGS = {
