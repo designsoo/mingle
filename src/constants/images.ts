@@ -83,4 +83,16 @@ export const SVGS = {
       alt: 'home icon',
     },
   },
+  setting: {
+    url: `${CLOUDFLARE_URL}/68d2441c-849b-46de-e10e-bc2639529d00/${ICON_SIZE_24}`,
+    alt: 'setting icon',
+  },
+  emoji: {
+    url: `${CLOUDFLARE_URL}/97270bfb-6b8d-47e8-1287-cb467772ce00/${ICON_SIZE_24}`,
+    alt: 'emoji add icon',
+  },
+  kakao: {
+    url: `${CLOUDFLARE_URL}/39031bf6-aed5-4c8b-3152-10b289253000/${ICON_SIZE_24}`,
+    alt: 'kakao share icon',
+  },
 };
