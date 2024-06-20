@@ -8,7 +8,7 @@ export const useCreateBoard = (navigate: NavigateFunction) => {
     mutationFn: RECIPIENTS.post,
     onSuccess: (response) => {
       const newBoardUrl = response.data.id;
-      navigate(`/recipients/${newBoardUrl}`);
+      navigate(`/board/${newBoardUrl}`);
     },
     onError: () => {
       alert('대시보드 생성에 실패했습니다. 다시 시도해 주세요.');
