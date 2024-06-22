@@ -6,7 +6,7 @@ import { SVGS } from '@/constants';
 import useTogglePopup from '@/hooks/useTogglePopup';
 import { useCreateEmoji } from '@/pages/DetailBoard/service/useCreateEmoji';
 import { useGetEmoji } from '@/pages/DetailBoard/service/useGetEmoji';
-import { EmojiProps, PostEmoji } from '@/types/recipients';
+import { EmojiResults, PostEmoji } from '@/types/recipients';
 
 const { emoji } = SVGS;
 
@@ -35,7 +35,7 @@ const EmojiList = ({ boardId }: EmojiListProps) => {
   return (
     <div className='emoji-list flex items-center gap-2'>
       <ul className='flex gap-2'>
-        {topRection?.map(({ id, emoji, count }: EmojiProps) => (
+        {topRection?.map(({ id, emoji, count }: EmojiResults) => (
           <li key={`emoji-badge-${id}`}>
             <BadgeEmoji emoji={emoji} count={count} />
           </li>
