@@ -4,6 +4,11 @@ export type EmojiProps = {
   count: number;
 };
 
+export type PostEmoji = {
+  emoji: string;
+  type: string;
+};
+
 export type PaperCardProps = {
   id: number;
   sender: string;
