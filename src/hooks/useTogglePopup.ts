@@ -2,8 +2,9 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 
 type TogglePopupResults = {
   isOpen: boolean;
-  popupRef: RefObject<HTMLDivElement>;
   buttonRef: RefObject<HTMLButtonElement>;
+  popupRef: RefObject<HTMLDivElement>;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   togglePopup: () => void;
 };
 
@@ -24,12 +25,7 @@ const useTogglePopup = (): TogglePopupResults => {
         setIsOpen(false);
       }
     };
-
-    if (isOpen) {
-      window.addEventListener('mousedown', handleClickOutside);
-    } else {
-      window.removeEventListener('mousedown', handleClickOutside);
-    }
+    window.addEventListener('mousedown', handleClickOutside);
 
     return () => {
       window.removeEventListener('mousedown', handleClickOutside);
@@ -40,7 +36,7 @@ const useTogglePopup = (): TogglePopupResults => {
     setIsOpen((prev) => !prev);
   };
 
-  return { isOpen, popupRef, buttonRef, togglePopup };
+  return { isOpen, popupRef, buttonRef, setIsOpen, togglePopup };
 };
 
 export default useTogglePopup;
