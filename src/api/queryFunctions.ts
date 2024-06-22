@@ -1,11 +1,16 @@
 import { RECIPIENTS } from './recipients';
 
-export const getBoard = async (recipientId: number) => {
-  const response = await RECIPIENTS.getBoard(recipientId);
+export const getBoard = async (boardId: number) => {
+  const response = await RECIPIENTS.getBoard(boardId);
   return response.data;
 };
 
-export const getMessages = async (recipientId: number) => {
-  const response = await RECIPIENTS.getMessages(recipientId);
-  return response.data;
+export const getMessages = async (boardId: number) => {
+  const response = await RECIPIENTS.getMessages(boardId);
+  return response.data.results;
+};
+
+export const getReactions = async (boardId: number) => {
+  const response = await RECIPIENTS.getReaction(boardId);
+  return response.data.results;
 };
