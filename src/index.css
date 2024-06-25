@@ -51,4 +51,42 @@
   .base-transition {
     @apply transition-all duration-300 ease-in-out;
   }
+
+  .flexbox-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flexbox-column-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flexbox-column-start {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+  }
+
+  .flexbox-row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .flexbox-row-between {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .flexbox-row-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
 }

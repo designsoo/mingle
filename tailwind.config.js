@@ -130,20 +130,9 @@ export default {
     },
   },
   plugins: [
+    require('tailwind-scrollbar-hide'),
     function ({ addUtilities }) {
       addUtilities({
-        '.flexbox-column': {
-          '@apply flex flex-col': '',
-        },
-        '.flexbox-column-center': {
-          '@apply flex flex-col items-center justify-center': '',
-        },
-        '.flexbox-row': {
-          '@apply flex flex-row': '',
-        },
-        '.flexbox-row-center': {
-          '@apply flex flex-row items-center justify-center': '',
-        },
         '.color-text-primary': {
           '@apply text-neutral-200': '',
         },
@@ -152,6 +141,9 @@ export default {
         },
         '.color-background-opacity-black-30': {
           '@apply bg-black bg-opacity-30': '',
+        },
+        '.sm-scroll-hidden': {
+          '@apply overflow-scroll scrollbar-hide': '',
         },
       });
     },
