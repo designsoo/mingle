@@ -2,7 +2,9 @@ import EmojiPicker, { EmojiClickData, EmojiStyle, Theme } from 'emoji-picker-rea
 import { BadgeEmoji, IconButton } from 'mingle-ui';
 
 import { SVGS } from '@/constants';
+import { getReactionsByDeviceType } from '@/utils';
 
+import { useDeviceType } from '@/hooks/useDeviceType';
 import useTogglePopup from '@/hooks/useTogglePopup';
 import { useCreateEmoji } from '@/pages/DetailBoard/service/useCreateEmoji';
 import { useGetEmoji } from '@/pages/DetailBoard/service/useGetEmoji';
@@ -19,7 +21,8 @@ const EmojiList = ({ boardId }: EmojiListProps) => {
   const { EmojiData } = useGetEmoji(boardId);
   const { postEmojiMutation } = useCreateEmoji(boardId);
 
-  const topRection = EmojiData?.slice(0, 3);
+  const deviceType = useDeviceType();
+  const emojiList = getReactionsByDeviceType(deviceType, EmojiData);
 
   const handleEmojiClick = (event: EmojiClickData) => {
     const emojiForm: PostEmoji = {
@@ -33,9 +36,9 @@ const EmojiList = ({ boardId }: EmojiListProps) => {
   };
 
   return (
-    <div className='emoji-list flex items-center gap-2'>
-      <ul className='flex gap-2'>
-        {topRection?.map(({ id, emoji, count }: EmojiResults) => (
+    <div className='flex w-full flex-row-reverse items-center gap-2 md:flex-row md:justify-end'>
+      <ul className='flex gap-2 sm-scroll-hidden'>
+        {emojiList?.map(({ id, emoji, count }: EmojiResults) => (
           <li key={`emoji-badge-${id}`}>
             <BadgeEmoji emoji={emoji} count={count} />
           </li>
@@ -52,7 +55,7 @@ const EmojiList = ({ boardId }: EmojiListProps) => {
           onClick={togglePopup}
         />
         {isOpen && (
-          <div ref={popupRef} className='absolute right-0 top-11 z-10'>
+          <div ref={popupRef} className='absolute right-0 top-11 z-20'>
             <EmojiPicker
               theme={Theme.DARK}
               emojiStyle={EmojiStyle.APPLE}
