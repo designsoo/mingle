@@ -78,11 +78,11 @@ const CreateBoard = () => {
   return (
     <div>
       <Header />
-      <main className='m-auto flex max-w-full flex-col gap-4 px-5 py-[100px] md:max-w-[720px] md:gap-8 md:py-[100px]'>
+      <main className='m-auto flex max-w-full flex-col gap-4 px-5 py-[100px] md:max-w-[720px] md:gap-8'>
         <h2 className='text-bold-24'>Create Board</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-8'>
-            <div className='justify-center gap-8 flexbox-column md:flex-row'>
+            <div className='flexbox-column-center md:flexbox-row gap-8'>
               <div className='flex flex-col items-center gap-4'>
                 <h3 className='w-full text-bold-18'>Preview</h3>
                 <div
@@ -99,7 +99,7 @@ const CreateBoard = () => {
                       <h4 className='h-7 text-bold-20'>{name}</h4>
                       <span className='text-base-16'>0개의 메시지가 작성됐어요!</span>
                     </div>
-                    <div className='w-full rounded-full py-2 flexbox-row-center color-background-opacity-black-30'>
+                    <div className='flexbox-row-center w-full rounded-full py-2 color-background-opacity-black-30'>
                       <span className='text-base-12'>No Emotions</span>
                     </div>
                   </div>
