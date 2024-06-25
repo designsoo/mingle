@@ -15,6 +15,7 @@ export type PaperCardResults = {
   relationship: string;
   content: string;
   profileImageURL: string;
+  createdAt: string;
 };
 
 export type MessagesResults = {
