@@ -30,7 +30,7 @@ export const PAPER_BACKGROUND_IMAGES = [
   {
     id: 'pika',
     type: 'backgroundImageURL',
-    value: `${CLOUDFLARE_URL}/278f93ac-551e-4d82-6dd3-5b67513c2e00/${PREVIEW_PAPER_SIZE}`,
+    value: `${CLOUDFLARE_URL}/650bcaca-3f77-4ebb-5907-7e9e2436af00/${PREVIEW_PAPER_SIZE}`,
   },
   {
     id: 'mario',
