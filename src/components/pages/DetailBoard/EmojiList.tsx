@@ -37,7 +37,7 @@ const EmojiList = ({ boardId }: EmojiListProps) => {
 
   return (
     <div className='flex w-full flex-row-reverse items-center gap-2 md:flex-row md:justify-end'>
-      <ul className='flex gap-2 sm-scroll-hidden'>
+      <ul className='flex w-full gap-2 sm-scroll-hidden md:justify-end'>
         {emojiList?.map(({ id, emoji, count }: EmojiResults) => (
           <li key={`emoji-badge-${id}`}>
             <BadgeEmoji emoji={emoji} count={count} />
