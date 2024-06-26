@@ -23,15 +23,14 @@ const EmojiList = ({ boardId }: EmojiListProps) => {
 
   const deviceType = useDeviceType();
   const emojiList = getReactionsByDeviceType(deviceType, EmojiData);
+  const emojiPickerPosition = deviceType === 'Mobile' ? 'absolute left-0 z-20 top-11' : 'absolute right-0 top-11 z-20';
 
   const handleEmojiClick = (event: EmojiClickData) => {
     const emojiForm: PostEmoji = {
       emoji: event.emoji,
       type: 'increase',
     };
-
     setIsOpen(false);
-
     postEmojiMutation({ boardId, emojiForm });
   };
 
@@ -55,7 +54,7 @@ const EmojiList = ({ boardId }: EmojiListProps) => {
           onClick={togglePopup}
         />
         {isOpen && (
-          <div ref={popupRef} className='absolute right-0 top-11 z-20'>
+          <div ref={popupRef} className={emojiPickerPosition}>
             <EmojiPicker
               theme={Theme.DARK}
               emojiStyle={EmojiStyle.APPLE}
