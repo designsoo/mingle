@@ -75,7 +75,7 @@ const BackgroundImageOptions = ({
   return (
     <ul className='mt-6 grid grid-cols-2 gap-4 md:grid-cols-4'>
       <li className='base-transition h-[160px] w-full rounded-lg border border-neutral-700 hover:border-yellow-300'>
-        <label htmlFor='photo' className='h-full w-full cursor-pointer flexbox-row-center'>
+        <label htmlFor='photo' className='flexbox-row-center h-full w-full cursor-pointer'>
           <img src={url} alt={alt} />
         </label>
         <input ref={inputRef} id='photo' type='file' className='hidden' onChange={onImageChange} />
