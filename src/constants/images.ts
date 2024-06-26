@@ -2,6 +2,7 @@ export const CLOUDFLARE_URL = import.meta.env.VITE_CLOUDFLARE_URL;
 
 export const PREVIEW_PAPER_SIZE = 'width=600,height=800';
 export const ICON_SIZE_24 = 'width=24,height=24';
+export const ICON_SIZE_20 = 'width=20,height=20';
 
 export const PAPER_BACKGROUND_COLORS = [
   {
@@ -84,8 +85,14 @@ export const SVGS = {
     },
   },
   setting: {
-    url: `${CLOUDFLARE_URL}/68d2441c-849b-46de-e10e-bc2639529d00/${ICON_SIZE_24}`,
-    alt: 'setting icon',
+    default: {
+      url: `${CLOUDFLARE_URL}/68d2441c-849b-46de-e10e-bc2639529d00/${ICON_SIZE_24}`,
+      alt: 'setting icon',
+    },
+    active: {
+      url: `${CLOUDFLARE_URL}/62035cbb-82db-4823-9ede-78b37ac9fe00/${ICON_SIZE_24}`,
+      alt: 'setting icon',
+    },
   },
   emoji: {
     url: `${CLOUDFLARE_URL}/97270bfb-6b8d-47e8-1287-cb467772ce00/${ICON_SIZE_24}`,
@@ -94,5 +101,15 @@ export const SVGS = {
   kakao: {
     url: `${CLOUDFLARE_URL}/39031bf6-aed5-4c8b-3152-10b289253000/${ICON_SIZE_24}`,
     alt: 'kakao share icon',
+  },
+  delete: {
+    default: {
+      url: `${CLOUDFLARE_URL}/a4a72529-c105-4ac2-03d4-c4527a707700/${ICON_SIZE_20}`,
+      alt: 'delete icon',
+    },
+    active: {
+      url: `${CLOUDFLARE_URL}/59d76585-93c4-476e-ffbf-ecaadd5ddd00/${ICON_SIZE_20}`,
+      alt: 'delete icon',
+    },
   },
 };
