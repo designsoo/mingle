@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import { InputField, PrimaryButton, TabList } from 'mingle-ui';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
 import { PAPER_BACKGROUND_COLORS, PAPER_BACKGROUND_IMAGES, TAB_LIST } from '@/constants';
 
@@ -30,8 +29,7 @@ const CreateBoard = () => {
     name: 'name',
   });
 
-  const navigate = useNavigate();
-  const { postFormMutation } = useCreateBoard(navigate);
+  const { postFormMutation } = useCreateBoard();
 
   const [selectedTab, setSelectedTab] = useState(TAB_LIST[0].id);
   const [selectedOption, setSelectedOption] = useState(PAPER_BACKGROUND_COLORS[0].id);
@@ -150,8 +148,9 @@ const CreateBoard = () => {
                 />
               )}
             </fieldset>
-
-            <PrimaryButton size='lg'>Create Board</PrimaryButton>
+            <PrimaryButton size='lg' type='submit'>
+              Create Board
+            </PrimaryButton>
           </form>
         </FormProvider>
       </main>
