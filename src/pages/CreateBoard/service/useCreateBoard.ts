@@ -1,9 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
-import { NavigateFunction } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { RECIPIENTS } from '@/api/recipients';
 
-export const useCreateBoard = (navigate: NavigateFunction) => {
+export const useCreateBoard = () => {
+  const navigate = useNavigate();
+
   const { mutate: postFormMutation } = useMutation({
     mutationFn: RECIPIENTS.post,
     onSuccess: (response) => {
