@@ -89,4 +89,16 @@
     justify-content: center;
     align-items: center;
   }
+
+  .absolute-y-center {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .absolute-x-center {
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%);
+  }
 }
