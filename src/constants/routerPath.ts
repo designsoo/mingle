@@ -4,5 +4,5 @@ export const ROUTER_PATH = {
   createBoard: '/create',
   detailBoard: '/board/:id',
   editBoard: '/board/:id/edit',
-  createMessage: '/create/:id/message',
+  addCard: '/create/:id/card',
 };
