@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 
 import { SVGS } from '@/constants';
 
-import { getUploadUrl } from '@/pages/CreateBoard/service/cloudflareImageService';
+import { getUploadUrl } from '@/pages/CreateBoard/data-access/cloudflareImageService';
 
 const {
   add: { url, alt },
@@ -19,7 +19,7 @@ interface BackgroundImageOptionsProps {
   selectedImage: string;
   onClick: (id: string, value: string, type: string) => void;
   setFile: (file: File | null) => void;
-  setUploadUrl: (url: string) => void;
+  setUploadId: (url: string) => void;
 }
 
 const BackgroundImageOptions = ({
@@ -27,7 +27,7 @@ const BackgroundImageOptions = ({
   selectedImage,
   onClick,
   setFile,
-  setUploadUrl,
+  setUploadId,
 }: BackgroundImageOptionsProps) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
@@ -52,12 +52,8 @@ const BackgroundImageOptions = ({
     onClick('custom-image', imagePreviewUrl, 'backgroundImageURL');
 
     // CDN 서버에서 URL 받아오기
-    const { success, result } = await getUploadUrl();
-
-    if (success) {
-      const { id } = result;
-      setUploadUrl(id);
-    }
+    const id = await getUploadUrl();
+    setUploadId(id);
 
     if (inputRef.current) {
       inputRef.current.value = '';
@@ -66,9 +62,9 @@ const BackgroundImageOptions = ({
 
   const handleButtonClick = (id: string, value: string, type: string) => {
     setPreviewImage(value);
-    // 기본 이미지 선택 시 file 정보를 초기화
+    // 기본 이미지 선택 시 사용자 등록 이미지 file 정보를 초기화
     setFile(null);
-    setUploadUrl('');
+    setUploadId('');
     onClick(id, value, type);
   };
 
