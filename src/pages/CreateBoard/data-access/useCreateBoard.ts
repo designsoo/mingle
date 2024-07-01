@@ -6,7 +6,7 @@ import { RECIPIENTS } from '@/api/recipients';
 export const useCreateBoard = () => {
   const navigate = useNavigate();
 
-  const { mutate: postFormMutation } = useMutation({
+  const { mutate: postFormMutation, isPending: isCreateLoading } = useMutation({
     mutationFn: RECIPIENTS.post,
     onSuccess: (response) => {
       const newBoardUrl = response.data.id;
@@ -17,5 +17,5 @@ export const useCreateBoard = () => {
     },
   });
 
-  return { postFormMutation };
+  return { postFormMutation, isCreateLoading };
 };

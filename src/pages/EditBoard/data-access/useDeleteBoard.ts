@@ -12,15 +12,19 @@ interface DeleteBoardResponse {
 export const useDeleteBoard = () => {
   const navigate = useNavigate();
 
-  const { isPending, mutate: deleteBoardMutation } = useMutation<AxiosResponse<DeleteBoardResponse>, Error, number>({
+  const { isPending: isDeleteLoading, mutate: deleteBoardMutation } = useMutation<
+    AxiosResponse<DeleteBoardResponse>,
+    Error,
+    number
+  >({
     mutationFn: RECIPIENTS.deleteBoard,
     onSuccess: () => {
-      navigate('/list');
+      navigate('/list', { replace: true });
     },
     onError: () => {
       alert('대시보드 삭제에 실패했습니다. 다시 시도해 주세요.');
     },
   });
 
-  return { isPending, deleteBoardMutation };
+  return { isDeleteLoading, deleteBoardMutation };
 };
