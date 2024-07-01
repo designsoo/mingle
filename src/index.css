@@ -2,13 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --mg-color-scrollbar: #333;
+}
+
 @layer base {
   * {
     @apply m-0 box-border p-0;
   }
 
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
-    @apply bg-neutral-950 font-jakarta text-neutral-200;
+    @apply min-h-screen overflow-y-scroll bg-neutral-950 font-jakarta text-neutral-200;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--mg-color-scrollbar);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #111;
+    }
   }
 
   legend {
@@ -27,8 +47,13 @@
     background: rgba(10, 10, 10, 0.7);
     backdrop-filter: blur(100px);
   }
+
   .option-background-gradient-yellow {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 30%, rgba(245, 231, 36, 0.8) 100%);
+  }
+
+  .sm-quill-width {
+    width: calc(100vw - 40px);
   }
 }
 
@@ -101,4 +126,39 @@
     top: 50%;
     transform: translateX(-50%);
   }
+
+  .quill-error {
+    @apply base-transition rounded-lg border border-yellow-300;
+  }
+
+  .body-scrollbar {
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: red;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: black;
+    }
+  }
+}
+
+#toolbar {
+  border-radius: 8px 8px 0 0;
+  border-bottom: 0;
+  @apply border-neutral-800 bg-neutral-900;
+}
+
+.ql-container.ql-snow {
+  width: 100%;
+  border-radius: 0 0 8px 8px;
+  @apply border-neutral-800;
+}
+
+.ql-picker-label {
+  @apply text-neutral-300;
 }
