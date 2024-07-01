@@ -8,8 +8,8 @@ import { PAPER_BACKGROUND_COLORS, PAPER_BACKGROUND_IMAGES, TAB_LIST } from '@/co
 import BackgroundColorOptions from '@/components/pages/createBoard/BackgroundColorOptions';
 import BackgroundImageOptions from '@/components/pages/createBoard/BackgroundImageOptions';
 import Header from '@/components/ui/Header';
-import { checkUploadStatus, uploadImageCloudflare } from '@/pages/CreateBoard/service/cloudflareImageService';
-import { useCreateBoard } from '@/pages/CreateBoard/service/useCreateBoard';
+import { checkUploadStatus, uploadImageCloudflare } from '@/pages/CreateBoard/data-access/cloudflareImageService';
+import { useCreateBoard } from '@/pages/CreateBoard/data-access/useCreateBoard';
 
 const DELIMITER = '&iquest';
 
@@ -29,13 +29,13 @@ const CreateBoard = () => {
     name: 'name',
   });
 
-  const { postFormMutation } = useCreateBoard();
+  const { postFormMutation, isCreateLoading } = useCreateBoard();
 
   const [selectedTab, setSelectedTab] = useState(TAB_LIST[0].id);
   const [selectedOption, setSelectedOption] = useState(PAPER_BACKGROUND_COLORS[0].id);
   const [preview, setPreview] = useState(PAPER_BACKGROUND_COLORS[0].value);
   const [file, setFile] = useState<File | null>(null);
-  const [uploadUrl, setUploadUrl] = useState('');
+  const [uploadId, setUploadId] = useState('');
   const [formData, setFormData] = useState<FormValues>({
     name: '',
     backgroundColor: 'blue',
@@ -47,7 +47,8 @@ const CreateBoard = () => {
     setPreview(value);
     setFormData((prev) => ({
       ...prev,
-      [type]: type === 'backgroundColor' ? id : value,
+      backgroundColor: type === 'backgroundColor' ? id : prev.backgroundColor,
+      backgroundImageURL: type === 'backgroundImageURL' ? value : null,
     }));
   };
 
@@ -61,10 +62,10 @@ const CreateBoard = () => {
     };
 
     if (file) {
-      const uploadResponse = await uploadImageCloudflare(file, uploadUrl);
+      const uploadResponse = await uploadImageCloudflare(file, uploadId);
       if (!uploadResponse.ok) return;
 
-      const checkResponse = await checkUploadStatus(uploadUrl);
+      const checkResponse = await checkUploadStatus(uploadId);
       const imageUrl = checkResponse.result.variants[0];
 
       updatedFormData.backgroundImageURL = imageUrl;
@@ -113,8 +114,9 @@ const CreateBoard = () => {
                   type='text'
                   placeholder='Name'
                   errorMessage='Name is Required'
-                  maxLength={11}
+                  maxLength={10}
                   isRequired
+                  autoComplete='username'
                 />
                 <InputField
                   formMethod={methods}
@@ -123,6 +125,7 @@ const CreateBoard = () => {
                   type='password'
                   placeholder='● ● ● ●'
                   maxLength={4}
+                  autoComplete='current-password'
                 />
               </fieldset>
             </div>
@@ -138,17 +141,18 @@ const CreateBoard = () => {
                   selectedImage={selectedOption}
                   onClick={handleImageClick}
                   setFile={setFile}
-                  setUploadUrl={setUploadUrl}
+                  setUploadId={setUploadId}
                 />
               ) : (
                 <BackgroundColorOptions
                   colorList={PAPER_BACKGROUND_COLORS}
                   selectedImage={selectedOption}
                   onClick={handleImageClick}
+                  setFile={setFile}
                 />
               )}
             </fieldset>
-            <PrimaryButton size='lg' type='submit'>
+            <PrimaryButton size='lg' type='submit' disabled={isCreateLoading}>
               Create Board
             </PrimaryButton>
           </form>
