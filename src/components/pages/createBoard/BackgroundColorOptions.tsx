@@ -8,16 +8,22 @@ interface BackgroundColorOptionsProps {
   colorList: ColorList[];
   selectedImage: string;
   onClick: (id: string, value: string, type: string) => void;
+  setFile: (file: File | null) => void;
 }
 
-const BackgroundColorOptions = ({ colorList, selectedImage, onClick }: BackgroundColorOptionsProps) => {
+const BackgroundColorOptions = ({ colorList, selectedImage, onClick, setFile }: BackgroundColorOptionsProps) => {
+  const handleColorOptionClick = (id: string, value: string, type: string) => {
+    setFile(null);
+    onClick(id, value, type);
+  };
+
   return (
     <ul className='mt-6 grid grid-cols-2 gap-4 md:grid-cols-4'>
       {colorList.map((color) => (
         <li key={`color-option-${color.id}`} className='w-full'>
           <button
             type='button'
-            onClick={() => onClick(color.id, color.value, color.type)}
+            onClick={() => handleColorOptionClick(color.id, color.value, color.type)}
             style={{
               backgroundImage: `url(${color.value})`,
               backgroundRepeat: 'no-repeat',
