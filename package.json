@@ -47,7 +47,7 @@
     "eslint-plugin-react-refresh": "^0.4.7",
     "husky": "^8.0.0",
     "lint-staged": "^15.2.7",
-    "mingle-ui": "^0.3.7",
+    "mingle-ui": "^0.4.2",
     "postcss": "^8.4.38",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.4",
