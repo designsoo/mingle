@@ -15,3 +15,10 @@ export const SORT_OPTIONS = [
   { id: 'desc', value: 'Latest' },
   { id: 'asc', value: 'Oldest' },
 ];
+
+export const RELATIONSHIP_LIST = [
+  { id: '친구', value: 'Friends' },
+  { id: '가족', value: 'Family' },
+  { id: '동료', value: 'Colleagues' },
+  { id: '지인', value: 'Acquaintances' },
+];
