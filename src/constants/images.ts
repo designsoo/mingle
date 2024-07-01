@@ -45,6 +45,13 @@ export const PAPER_BACKGROUND_IMAGES = [
   },
 ];
 
+export const PNGS = {
+  card: {
+    url: `${CLOUDFLARE_URL}/e25990d4-511c-4c38-91c6-eeeab7f55700/${PREVIEW_PAPER_SIZE}`,
+    alt: 'card background image',
+  },
+};
+
 export const SVGS = {
   logo: {
     url: `${CLOUDFLARE_URL}/b571045b-4bb3-4222-36d5-8557bcf7f300/width=72,height=24`,
