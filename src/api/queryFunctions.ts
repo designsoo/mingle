@@ -5,8 +5,8 @@ export const getBoard = async (boardId: number) => {
   return response.data;
 };
 
-export const getMessages = async (boardId: number) => {
-  const response = await RECIPIENTS.getMessages(boardId);
+export const getMessages = async ({ boardId, offset }: { boardId: number; offset: number }) => {
+  const response = await RECIPIENTS.getMessages({ boardId, offset });
   return response.data.results;
 };
 
