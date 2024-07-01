@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -21,13 +21,13 @@ import BoardCount from '@/components/pages/detailBoard/BoardCount';
 import CardList from '@/components/pages/detailBoard/CardList';
 import EmojiList from '@/components/pages/detailBoard/EmojiList';
 import Header from '@/components/ui/Header';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import useMultiState from '@/hooks/useMultiState';
+import { useGetBoardData } from '@/pages/DetailBoard/data-access/useGetBoardData';
+import { useGetMessages } from '@/pages/DetailBoard/data-access/useGetMessages';
+import { useDeleteBoard } from '@/pages/EditBoard/data-access/useDeleteBoard';
 import { passwordSchema } from '@/pages/EditBoard/schema/passwordSchema';
-import { useDeleteBoard } from '@/pages/EditBoard/service/useDeleteBoard';
 import { MessagesResults, PaperCardResults } from '@/types/recipients';
-
-import { useGetBoardData } from './service/useGetBoardData';
-import { useGetMessages } from './service/useGetMessages';
 
 const { setting, kakao, delete: removeIcon } = SVGS;
 
@@ -42,12 +42,12 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
   const dropdownPosition = isEdit ? 'absolute-y-center right-0 z-10' : 'absolute right-[44px] z-10 max-w-[112px]';
 
   const { boardData } = useGetBoardData(boardId);
-  const { messageData, isMessagesLoading } = useGetMessages(boardId);
-  const { isPending, deleteBoardMutation } = useDeleteBoard();
+  const { messageData, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetMessages(boardId);
+  const { setTrigger } = useIntersectionObserver({ hasNextPage, fetchNextPage });
+  const { isDeleteLoading, deleteBoardMutation } = useDeleteBoard();
+  const { name, password } = boardData?.name ? splitByDelimiter(boardData.name) : { name: '', password: '' };
   const { multiState, toggleClick } = useMultiState(['confirmPasswordModal', 'confirmDeleteModal']);
 
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
   const [selectedTab, setSelectedTab] = useState(AUTHOR_LIST[0].id);
   const [selectedSortOption, setSelectedSortOption] = useState(SORT_OPTIONS[0].id);
 
@@ -62,10 +62,15 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
     formState: { errors },
   } = methods;
 
-  const filteredMessages = useMemo(() => {
+  const messages = useMemo(() => {
     if (!messageData) return [];
+    return messageData.pages;
+  }, [messageData]);
 
-    const filtered = messageData.filter((messageData: PaperCardResults) => {
+  const filteredMessages = useMemo(() => {
+    if (!messages) return [];
+
+    const filtered = messages.filter((messageData: PaperCardResults) => {
       return selectedTab === 'all' || messageData.relationship === selectedTab;
     });
 
@@ -76,18 +81,13 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
     });
 
     return sorted;
-  }, [messageData, selectedTab, selectedSortOption]);
+  }, [messages, selectedTab, selectedSortOption]);
 
   const handleToggleConfirmPasswordModal = () => toggleClick('confirmPasswordModal');
   const handleToggleConfirmDeletedModal = () => toggleClick('confirmDeleteModal');
-
-  const navigateToEditPage = () => {
-    navigate(`/board/${boardId}/edit`);
-  };
-
-  const navigateToDetailPage = () => {
-    navigate(`/board/${boardId}`);
-  };
+  const navigateToAddCardPage = () => navigate(`/create/${boardId}/card`);
+  const navigateToEditPage = () => navigate(`/board/${boardId}/edit`);
+  const navigateToDetailPage = () => navigate(`/board/${boardId}`);
 
   const DeleteButtonClick = () => {
     if (password) {
@@ -113,18 +113,10 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
     }
   };
 
-  useEffect(() => {
-    if (boardData) {
-      const { name, password } = splitByDelimiter(boardData.name);
-      setName(name);
-      setPassword(password);
-    }
-  }, [boardData]);
-
   return (
     <div>
       <Header />
-      <main className='py-[100px]'>
+      <main className='pb-[60px] pt-[100px]'>
         <div>
           <div className='m-auto flex max-w-[1120px] flex-col gap-2 px-5 lg:px-10 xl:px-0'>
             <div className='flex items-center gap-1'>
@@ -183,20 +175,26 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
               </div>
             </div>
 
-            <CardList
-              isEdit={isEdit}
-              boardId={boardId}
-              isMessagesLoading={isMessagesLoading}
-              filteredMessages={filteredMessages}
-            />
+            <CardList isEdit={isEdit} boardId={boardId} isMessagesLoading={false} filteredMessages={filteredMessages} />
+
+            {isFetchingNextPage && (
+              <div className='my-4 flex justify-center'>
+                <span>Loading...</span>
+              </div>
+            )}
+
+            <div ref={setTrigger} className='size-10 bg-transparent'></div>
           </section>
+
           <div className='fixed bottom-5 left-0 right-0 z-20 m-auto max-w-[800px] px-5'>
             {isEdit ? (
-              <PrimaryButton size='lg' variant='destructive' disabled={isPending} onClick={DeleteButtonClick}>
+              <PrimaryButton size='lg' variant='destructive' disabled={isDeleteLoading} onClick={DeleteButtonClick}>
                 Delete Board
               </PrimaryButton>
             ) : (
-              <PrimaryButton size='lg'>Add Paper</PrimaryButton>
+              <PrimaryButton size='lg' onClick={navigateToAddCardPage}>
+                Add Card
+              </PrimaryButton>
             )}
           </div>
         </div>
@@ -211,7 +209,14 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className='flex w-full flex-col items-end gap-6 md:w-[400px]'>
               <div className='flex w-full flex-col gap-2'>
-                <Input formMethod={methods} name='password' placeholder='● ● ● ●' type='password' maxLength={4} />
+                <Input
+                  formMethod={methods}
+                  name='password'
+                  placeholder='● ● ● ●'
+                  type='password'
+                  maxLength={4}
+                  autoComplete='current-password'
+                />
                 {errors?.password && <ErrorMessage>{(errors.password as FieldError).message}</ErrorMessage>}
               </div>
               <div className='flex gap-3'>
