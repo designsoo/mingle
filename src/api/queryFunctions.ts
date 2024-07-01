@@ -1,4 +1,4 @@
-import { RECIPIENTS } from './recipients';
+import { MESSAGES, RECIPIENTS } from './recipients';
 
 export const getBoard = async (boardId: number) => {
   const response = await RECIPIENTS.getBoard(boardId);
@@ -6,7 +6,7 @@ export const getBoard = async (boardId: number) => {
 };
 
 export const getMessages = async ({ boardId, offset }: { boardId: number; offset: number }) => {
-  const response = await RECIPIENTS.getMessages({ boardId, offset });
+  const response = await MESSAGES.get({ boardId, offset });
   return response.data.results;
 };
 

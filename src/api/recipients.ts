@@ -9,17 +9,14 @@ export const RECIPIENTS = {
   getBoard: (recipientId: number) => instance.get(`${RECIPIENTS_API}${recipientId}/`),
   post: (data: object) => instance.post(RECIPIENTS_API, data),
   deleteBoard: (recipientId: number) => instance.delete(`${RECIPIENTS_API}${recipientId}/`),
-
-  getMessages: ({ boardId, offset }: { boardId: number; offset: number }) =>
-    instance.get(`${RECIPIENTS_API}${boardId}${MESSAGE_API}`, { params: { limit: 6, offset } }),
-
   createReaction: ({ boardId, emojiForm }: { boardId: number; emojiForm: PostEmoji }) =>
     instance.post(`${RECIPIENTS_API}${boardId}/reactions/`, emojiForm),
   getReaction: (recipientId: number) => instance.get(`${RECIPIENTS_API}${recipientId}/reactions/`),
 };
 
 export const MESSAGES = {
-  get: (recipientId: number) => instance.get(`${RECIPIENTS_API}${recipientId}${MESSAGE_API}`),
+  get: ({ boardId, offset }: { boardId: number; offset: number }) =>
+    instance.get(`${RECIPIENTS_API}${boardId}${MESSAGE_API}`, { params: { limit: 6, offset } }),
   delete: (messageId: number) => instance.delete(`${MESSAGE_API}${messageId}/`),
   create: ({ recipientId, cardForm }: { recipientId: number; cardForm: object }) =>
     instance.post(`${RECIPIENTS_API}${recipientId}/messages/`, cardForm),
