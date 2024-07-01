@@ -4,14 +4,13 @@ import { InputField, PrimaryButton, TabList } from 'mingle-ui';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 
 import { PAPER_BACKGROUND_COLORS, PAPER_BACKGROUND_IMAGES, TAB_LIST } from '@/constants';
+import { DELIMITER } from '@/utils';
 
 import BackgroundColorOptions from '@/components/pages/createBoard/BackgroundColorOptions';
 import BackgroundImageOptions from '@/components/pages/createBoard/BackgroundImageOptions';
 import Header from '@/components/ui/Header';
 import { checkUploadStatus, uploadImageCloudflare } from '@/pages/CreateBoard/data-access/cloudflareImageService';
 import { useCreateBoard } from '@/pages/CreateBoard/data-access/useCreateBoard';
-
-const DELIMITER = '&iquest';
 
 type FormValues = {
   name: string;
