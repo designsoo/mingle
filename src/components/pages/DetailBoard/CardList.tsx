@@ -17,8 +17,8 @@ import { TRANSLATE_TO_EN, SVGS } from '@/constants';
 import { splitByDelimiter } from '@/utils';
 
 import useMultiState from '@/hooks/useMultiState';
+import { useDeleteCard } from '@/pages/EditBoard/data-access/useDeleteCard';
 import { passwordSchema } from '@/pages/EditBoard/schema/passwordSchema';
-import { useDeleteCard } from '@/pages/EditBoard/service/useDeleteCard';
 import { MessagesResults, PaperCardResults } from '@/types/recipients';
 
 import DeleteCardButton from './DeleteCardButton';
@@ -127,7 +127,14 @@ const CardList = ({ isEdit, boardId, isMessagesLoading, filteredMessages }: Card
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className='flex w-full flex-col items-end gap-6 md:w-[400px]'>
               <div className='flex w-full flex-col gap-2'>
-                <Input formMethod={methods} name='password' placeholder='● ● ● ●' type='password' maxLength={4} />
+                <Input
+                  formMethod={methods}
+                  name='password'
+                  placeholder='● ● ● ●'
+                  type='password'
+                  maxLength={4}
+                  autoComplete='current-password'
+                />
                 {errors?.password && <ErrorMessage>{(errors.password as FieldError).message}</ErrorMessage>}
               </div>
               <div className='flex gap-3'>

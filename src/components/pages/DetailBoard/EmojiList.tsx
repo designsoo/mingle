@@ -6,8 +6,8 @@ import { getReactionsByDeviceType } from '@/utils';
 
 import { useDeviceType } from '@/hooks/useDeviceType';
 import useTogglePopup from '@/hooks/useTogglePopup';
-import { useCreateEmoji } from '@/pages/DetailBoard/service/useCreateEmoji';
-import { useGetEmoji } from '@/pages/DetailBoard/service/useGetEmoji';
+import { useCreateEmoji } from '@/pages/DetailBoard/data-access/useCreateEmoji';
+import { useGetEmoji } from '@/pages/DetailBoard/data-access/useGetEmoji';
 import { EmojiResults, PostEmoji } from '@/types/recipients';
 
 const { emoji } = SVGS;
