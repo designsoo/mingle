@@ -1,24 +1,19 @@
 import { useMemo, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Dropdown,
-  IconButton,
-  TabList,
-  PrimaryButton,
-  ConfirmModal,
-  CommonModal,
-  ErrorMessage,
-  Input,
-} from 'mingle-ui';
-import { FieldError, FormProvider, useForm } from 'react-hook-form';
+import { Dropdown, IconButton, TabList, PrimaryButton } from 'mingle-ui';
+import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { AUTHOR_LIST, SORT_OPTIONS, SVGS, TRANSLATE_TO_EN } from '@/constants';
 import { splitByDelimiter } from '@/utils';
 
 import BoardCount from '@/components/pages/detailBoard/BoardCount';
+import BoardName from '@/components/pages/detailBoard/BoardName';
+import BoardSkeleton from '@/components/pages/detailBoard/BoardSkeleton';
 import CardList from '@/components/pages/detailBoard/CardList';
+import ConfirmDeleteModal from '@/components/pages/detailBoard/ConfirmDeleteModal';
+import ConfirmPasswordModal from '@/components/pages/detailBoard/ConfirmPasswordModal';
 import EmojiList from '@/components/pages/detailBoard/EmojiList';
 import Header from '@/components/ui/Header';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
@@ -29,7 +24,7 @@ import { useDeleteBoard } from '@/pages/EditBoard/data-access/useDeleteBoard';
 import { passwordSchema } from '@/pages/EditBoard/schema/passwordSchema';
 import { MessagesResults, PaperCardResults } from '@/types/recipients';
 
-const { setting, kakao, delete: removeIcon } = SVGS;
+const { kakao } = SVGS;
 
 interface DetailBoardProps {
   isEdit?: boolean;
@@ -41,7 +36,7 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
   const navigate = useNavigate();
   const dropdownPosition = isEdit ? 'absolute-y-center right-0 z-10' : 'absolute right-[44px] z-10 max-w-[112px]';
 
-  const { boardData } = useGetBoardData(boardId);
+  const { boardData, isBoardDataLoading } = useGetBoardData(boardId);
   const { messageData, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetMessages(boardId);
   const { setTrigger } = useIntersectionObserver({ hasNextPage, fetchNextPage });
   const { isDeleteLoading, deleteBoardMutation } = useDeleteBoard();
@@ -56,11 +51,7 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
     resolver: zodResolver(passwordSchema(password)),
   });
 
-  const {
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = methods;
+  const { reset } = methods;
 
   const messages = useMemo(() => {
     if (!messageData) return [];
@@ -86,8 +77,6 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
   const handleToggleConfirmPasswordModal = () => toggleClick('confirmPasswordModal');
   const handleToggleConfirmDeletedModal = () => toggleClick('confirmDeleteModal');
   const navigateToAddCardPage = () => navigate(`/create/${boardId}/card`);
-  const navigateToEditPage = () => navigate(`/board/${boardId}/edit`);
-  const navigateToDetailPage = () => navigate(`/board/${boardId}`);
 
   const DeleteButtonClick = () => {
     if (password) {
@@ -118,26 +107,9 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
       <Header />
       <main className='pb-[60px] pt-[100px]'>
         <div>
+          {isBoardDataLoading && <BoardSkeleton />}
           <div className='m-auto flex max-w-[1120px] flex-col gap-2 px-5 lg:px-10 xl:px-0'>
-            <div className='flex items-center gap-1'>
-              <h2 className='text-bold-24'>{name}</h2>
-              {isEdit ? (
-                <IconButton
-                  iconUrl={setting.active.url}
-                  iconAlt={setting.active.alt}
-                  iconSize={20}
-                  onClick={navigateToDetailPage}
-                />
-              ) : (
-                <IconButton
-                  iconUrl={setting.default.url}
-                  iconAlt={setting.default.alt}
-                  iconSize={20}
-                  onClick={navigateToEditPage}
-                />
-              )}
-            </div>
-
+            <BoardName isEdit={isEdit} name={name} boardId={boardId} />
             <div
               className={`${isEdit && '!flexbox-column-center h-9'} flexbox-column-start md:!flexbox-row-between gap-3 md:h-9`}
             >
@@ -175,10 +147,15 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
               </div>
             </div>
 
-            <CardList isEdit={isEdit} boardId={boardId} isMessagesLoading={false} filteredMessages={filteredMessages} />
+            <CardList
+              isEdit={isEdit}
+              boardId={boardId}
+              isMessagesLoading={isBoardDataLoading}
+              filteredMessages={filteredMessages}
+            />
 
             {isFetchingNextPage && (
-              <div className='my-4 flex justify-center'>
+              <div className='flexbox-row-center my-4'>
                 <span>Loading...</span>
               </div>
             )}
@@ -200,56 +177,18 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
         </div>
       </main>
 
-      <CommonModal
-        openModal={multiState.confirmPasswordModal}
+      <ConfirmPasswordModal
+        formMethods={methods}
+        isOpenPasswordModal={multiState.confirmPasswordModal}
         onClose={handleToggleConfirmPasswordModal}
-        title='Confirm Password'
-      >
-        <div className='flex w-full flex-col items-end gap-6'>
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)} className='flex w-full flex-col items-end gap-6 md:w-[400px]'>
-              <div className='flex w-full flex-col gap-2'>
-                <Input
-                  formMethod={methods}
-                  name='password'
-                  placeholder='● ● ● ●'
-                  type='password'
-                  maxLength={4}
-                  autoComplete='current-password'
-                />
-                {errors?.password && <ErrorMessage>{(errors.password as FieldError).message}</ErrorMessage>}
-              </div>
-              <div className='flex gap-3'>
-                <PrimaryButton variant='stroke' onClick={handleToggleConfirmPasswordModal}>
-                  Cancel
-                </PrimaryButton>
-                <PrimaryButton variant='destructive' type='submit'>
-                  Delete
-                </PrimaryButton>
-              </div>
-            </form>
-          </FormProvider>
-        </div>
-      </CommonModal>
+        onSubmit={onSubmit}
+      />
 
-      <ConfirmModal
-        openModal={multiState.confirmDeleteModal}
+      <ConfirmDeleteModal
+        isOpenDeleteModal={multiState.confirmDeleteModal}
         onClose={handleToggleConfirmDeletedModal}
-        iconUrl={removeIcon.active.url}
-        iconAlt={removeIcon.active.alt}
-        iconSize={58}
-        title='Are you sure'
-        desc='This action cannot be undone.'
-      >
-        <div className='flex gap-3'>
-          <PrimaryButton variant='stroke' onClick={handleToggleConfirmDeletedModal}>
-            Cancel
-          </PrimaryButton>
-          <PrimaryButton variant='destructive' onClick={handleDeleteBoard}>
-            Delete
-          </PrimaryButton>
-        </div>
-      </ConfirmModal>
+        handleDeleteCard={handleDeleteBoard}
+      />
     </div>
   );
 };
