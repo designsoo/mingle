@@ -14,6 +14,13 @@ export default {
             fontWeight: 400,
           },
         ],
+        'bold-12': [
+          '0.75rem',
+          {
+            lineHeight: '1.125rem',
+            fontWeight: 600,
+          },
+        ],
         'base-13': [
           '0.8125rem',
           {
@@ -141,6 +148,9 @@ export default {
         },
         '.color-background-opacity-black-30': {
           '@apply bg-black bg-opacity-30': '',
+        },
+        '.color-background-opacity-white-10': {
+          '@apply bg-white bg-opacity-10': '',
         },
         '.sm-scroll-hidden': {
           '@apply overflow-scroll scrollbar-hide': '',
