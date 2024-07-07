@@ -130,21 +130,6 @@
   .quill-error {
     @apply base-transition rounded-lg border border-yellow-300;
   }
-
-  .body-scrollbar {
-    &::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: red;
-      border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: black;
-    }
-  }
 }
 
 #toolbar {
