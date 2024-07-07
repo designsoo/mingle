@@ -123,4 +123,14 @@ export const SVGS = {
     url: `${CLOUDFLARE_URL}/979d6cac-f641-43ab-5c99-922d45373e00/${ICON_SIZE_20}`,
     alt: 'members icon',
   },
+  arrow: {
+    left: {
+      url: `${CLOUDFLARE_URL}/517fe462-7bfb-4ba9-b2cd-65e9474aca00/${ICON_SIZE_20}`,
+      alt: 'arrow left icon',
+    },
+    right: {
+      url: `${CLOUDFLARE_URL}/c3e8443f-b224-4b4e-8ea4-8747db312c00/${ICON_SIZE_20}`,
+      alt: 'arrow right icon',
+    },
+  },
 };
