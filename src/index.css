@@ -38,7 +38,7 @@
 
 @layer components {
   .board-card-inner {
-    border-radius: 8px;
+    border-radius: 12px;
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(30px);
   }
