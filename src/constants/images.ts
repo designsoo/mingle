@@ -54,7 +54,7 @@ export const PNGS = {
 
 export const SVGS = {
   logo: {
-    url: `${CLOUDFLARE_URL}/b571045b-4bb3-4222-36d5-8557bcf7f300/width=72,height=24`,
+    url: `${CLOUDFLARE_URL}/64c2ebd4-300b-405f-1de0-664672b8d100/width=124,height=36`,
     alt: 'mingle logo',
   },
   add: {
