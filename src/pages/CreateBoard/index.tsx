@@ -8,6 +8,7 @@ import { DELIMITER } from '@/utils';
 
 import BackgroundColorOptions from '@/components/pages/createBoard/BackgroundColorOptions';
 import BackgroundImageOptions from '@/components/pages/createBoard/BackgroundImageOptions';
+import PreviewBoard from '@/components/pages/createBoard/PreviewBoard';
 import Header from '@/components/ui/Header';
 import { checkUploadStatus, uploadImageCloudflare } from '@/pages/CreateBoard/data-access/cloudflareImageService';
 import { useCreateBoard } from '@/pages/CreateBoard/data-access/useCreateBoard';
@@ -83,25 +84,7 @@ const CreateBoard = () => {
             <div className='flexbox-column-center md:flexbox-row gap-8'>
               <div className='flex flex-col items-center gap-4'>
                 <h3 className='w-full text-bold-18'>Preview</h3>
-                <div
-                  style={{
-                    backgroundImage: `url(${preview})`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center center',
-                  }}
-                  className='flex h-[300px] w-[260px] flex-col justify-end overflow-hidden rounded-2xl bg-neutral-800 p-4'
-                >
-                  <div className='board-card-inner flex h-[130px] flex-col justify-between p-3'>
-                    <div className='flex flex-col gap-1'>
-                      <h4 className='h-7 text-bold-20'>{name}</h4>
-                      <span className='text-base-16'>0개의 메시지가 작성됐어요!</span>
-                    </div>
-                    <div className='flexbox-row-center w-full rounded-full py-2 color-background-opacity-black-30'>
-                      <span className='text-base-12'>No Emotions</span>
-                    </div>
-                  </div>
-                </div>
+                <PreviewBoard previewImgae={preview} name={name} />
               </div>
 
               <fieldset className='flex w-full flex-grow flex-col gap-7 md:pt-[3rem]'>
