@@ -119,4 +119,8 @@ export const SVGS = {
       alt: 'delete icon',
     },
   },
+  members: {
+    url: `${CLOUDFLARE_URL}/979d6cac-f641-43ab-5c99-922d45373e00/${ICON_SIZE_20}`,
+    alt: 'members icon',
+  },
 };
