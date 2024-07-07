@@ -5,7 +5,7 @@ import { PostEmoji } from '@/types/recipients';
 import instance from './axiosInstance';
 
 export const RECIPIENTS = {
-  getBoardList: () => instance.get(RECIPIENTS_API),
+  getBoardList: (sort?: string, limit?: number) => instance.get(RECIPIENTS_API, { params: { sort, limit } }),
   getBoard: (recipientId: number) => instance.get(`${RECIPIENTS_API}${recipientId}/`),
   post: (data: object) => instance.post(RECIPIENTS_API, data),
   deleteBoard: (recipientId: number) => instance.delete(`${RECIPIENTS_API}${recipientId}/`),
