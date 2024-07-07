@@ -107,16 +107,19 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
       <Header />
       <main className='pb-[60px] pt-[100px]'>
         <div>
-          {isBoardDataLoading && <BoardSkeleton />}
-          <div className='m-auto flex max-w-[1120px] flex-col gap-2 px-5 lg:px-10 xl:px-0'>
-            <BoardName isEdit={isEdit} name={name} boardId={boardId} />
-            <div
-              className={`${isEdit && '!flexbox-column-center h-9'} flexbox-column-start md:!flexbox-row-between gap-3 md:h-9`}
-            >
-              <BoardCount paperCount={boardData?.messageCount} reactionCount={boardData?.reactionCount} />
-              {!isEdit && <EmojiList boardId={boardId} />}
+          {isBoardDataLoading ? (
+            <BoardSkeleton />
+          ) : (
+            <div className='m-auto flex max-w-[1120px] flex-col gap-2 px-5 lg:px-10 xl:px-0'>
+              <BoardName isEdit={isEdit} name={name} boardId={boardId} />
+              <div
+                className={`${isEdit && '!flexbox-column-center h-9'} flexbox-column-start md:!flexbox-row-between gap-3 md:h-9`}
+              >
+                <BoardCount paperCount={boardData?.messageCount} reactionCount={boardData?.reactionCount} />
+                {!isEdit && <EmojiList boardId={boardId} />}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className='mt-6 h-[52px] w-full border-y border-neutral-800'>
             <div className='m-auto max-w-[1120px] sm-scroll-hidden lg:px-10 xl:px-0'>
