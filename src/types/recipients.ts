@@ -9,7 +9,7 @@ export type PostEmoji = {
   type: string;
 };
 
-export type PaperCardResults = {
+export type CardResults = {
   id: number;
   sender: string;
   relationship: string;
@@ -39,4 +39,9 @@ export type BoardResults = {
   reactionCount: number;
   recentMessages: MessagesResults[];
   topReactions: EmojiResults[];
+};
+
+export type BoardListParams = {
+  sort?: string;
+  limit?: number;
 };
