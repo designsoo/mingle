@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { EmptyCard, PaperCard } from 'mingle-ui';
+import { EmptyCard, Card } from 'mingle-ui';
 import { useForm } from 'react-hook-form';
 
 import { TRANSLATE_TO_EN } from '@/constants';
@@ -13,7 +13,7 @@ import DeleteCardButton from '@/components/pages/detailBoard/DeleteCardButton';
 import useMultiState from '@/hooks/useMultiState';
 import { useDeleteCard } from '@/pages/EditBoard/data-access/useDeleteCard';
 import { passwordSchema } from '@/pages/EditBoard/schema/passwordSchema';
-import { MessagesResults, PaperCardResults } from '@/types/recipients';
+import { MessagesResults, CardResults } from '@/types/recipients';
 
 import ConfirmPasswordModal from './ConfirmPasswordModal';
 
@@ -72,13 +72,13 @@ const CardList = ({ isEdit, boardId, isMessagesLoading, filteredMessages }: Card
   return (
     <>
       <ul className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
-        {isMessagesLoading && <CardListSkeleton />}
-
-        {isEmpty ? (
-          <EmptyCard />
+        {isMessagesLoading ? (
+          <CardListSkeleton />
         ) : (
-          filteredMessages?.map(
-            ({ id, sender, relationship, content, profileImageURL, createdAt }: PaperCardResults) => {
+          <>
+            {isEmpty && <EmptyCard />}
+
+            {filteredMessages?.map(({ id, sender, relationship, content, profileImageURL, createdAt }: CardResults) => {
               const { name, password } = splitByDelimiter(sender);
 
               return (
@@ -88,7 +88,7 @@ const CardList = ({ isEdit, boardId, isMessagesLoading, filteredMessages }: Card
                       <DeleteCardButton onClick={() => onDeleteButtonClick(id, password)} />
                     </div>
                   )}
-                  <PaperCard
+                  <Card
                     fromName={name}
                     category={TRANSLATE_TO_EN[relationship]}
                     description={content}
@@ -97,8 +97,8 @@ const CardList = ({ isEdit, boardId, isMessagesLoading, filteredMessages }: Card
                   />
                 </li>
               );
-            },
-          )
+            })}
+          </>
         )}
       </ul>
 
