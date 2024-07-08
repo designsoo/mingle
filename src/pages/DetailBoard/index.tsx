@@ -22,7 +22,7 @@ import { useGetBoardData } from '@/pages/DetailBoard/data-access/useGetBoardData
 import { useGetMessages } from '@/pages/DetailBoard/data-access/useGetMessages';
 import { useDeleteBoard } from '@/pages/EditBoard/data-access/useDeleteBoard';
 import { passwordSchema } from '@/pages/EditBoard/schema/passwordSchema';
-import { MessagesResults, PaperCardResults } from '@/types/recipients';
+import { MessagesResults, CardResults } from '@/types/recipients';
 
 const { kakao } = SVGS;
 
@@ -61,7 +61,7 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
   const filteredMessages = useMemo(() => {
     if (!messages) return [];
 
-    const filtered = messages.filter((messageData: PaperCardResults) => {
+    const filtered = messages.filter((messageData: CardResults) => {
       return selectedTab === 'all' || messageData.relationship === selectedTab;
     });
 
