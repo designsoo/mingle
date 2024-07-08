@@ -17,8 +17,8 @@ const MemberList = ({ memberList, memberCount }: MemberListProps) => {
   const isMemberEmpty = memberCount === 0;
 
   return (
-    <div className='flexbox-row justify-start gap-3'>
-      <img className='pl-2' src={url} alt={alt} />
+    <div className='flexbox-row justify-start gap-2'>
+      <img className='pl-1' src={url} alt={alt} />
       <span className='h-6 w-px border border-white opacity-10'></span>
 
       {isMemberEmpty ? (
