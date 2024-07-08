@@ -1,11 +1,8 @@
+import { BoardListParams } from '@/types/recipients';
+
 import { MESSAGES, RECIPIENTS } from './recipients';
 
-export const getBoardList = async ({
-  queryKey,
-}: {
-  queryKey: [string, (string | undefined)?, (number | undefined)?];
-}) => {
-  const [, sort, limit] = queryKey;
+export const getBoardList = async ({ sort, limit }: BoardListParams) => {
   const response = await RECIPIENTS.getBoardList(sort, limit);
   return response.data.results;
 };
