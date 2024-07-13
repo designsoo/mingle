@@ -105,6 +105,20 @@ export default {
             fontWeight: 600,
           },
         ],
+        'base-28': [
+          '1.75rem', // 28px
+          {
+            lineHeight: '2.375rem',
+            fontWeight: 400,
+          },
+        ],
+        'bold-28': [
+          '1.75rem', // 28px
+          {
+            lineHeight: '2.375rem',
+            fontWeight: 600,
+          },
+        ],
         'base-32': [
           '2rem', // 32px
           {
@@ -134,6 +148,10 @@ export default {
         'fade-up': 'fadeUp ease-in-out .3s',
         'fade-down': 'fadeDown ease-in-out .3s',
       },
+    },
+    screens: {
+      md: '768px',
+      lg: '1024px',
     },
   },
   plugins: [
