@@ -170,6 +170,9 @@ export default {
         '.color-background-opacity-white-10': {
           '@apply bg-white bg-opacity-10': '',
         },
+        '.color-background-opacity-black-1': {
+          '@apply bg-black bg-opacity-[1px]': '',
+        },
         '.sm-scroll-hidden': {
           '@apply overflow-scroll scrollbar-hide': '',
         },
