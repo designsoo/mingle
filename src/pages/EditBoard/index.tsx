@@ -1,7 +1,7 @@
 import DetailBoard from '@/pages/DetailBoard';
 
 const EditBoard = () => {
-  return <DetailBoard isEdit={true} />;
+  return <DetailBoard isEdit />;
 };
 
 export default EditBoard;
