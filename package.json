@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "postinstall": "husky install",
     "lint-staged": "lint-staged",
-    "prepare": "husky && husky install"
+    "prepare": "husky && husky install",
+    "serve": "serve -s dist"
   },
   "dependencies": {
     "@fontsource/plus-jakarta-sans": "^5.0.20",
