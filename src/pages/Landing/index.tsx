@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 
-import { PNGS, SVGS, bannerContent } from '@/constants';
+import { PNGS, bannerContent } from '@/constants';
 
+import Footer from '@/components/ui/Footer';
 import Header from '@/components/ui/Header';
 
 const { ipad, iphone, banner_emoji, banner_celebrate } = PNGS;
-const { footer_logo } = SVGS;
+
 const { dashboard, emoji, celebrate, share, write } = bannerContent;
 
 const Landing = () => {
@@ -93,16 +94,9 @@ const Landing = () => {
             </div>
           </div>
         </section>
-      </main>
 
-      <footer className='grid w-full grid-cols-4 gap-5 border-t border-neutral-800 px-5 md:grid-cols-12'>
-        <div className='col-span-4 w-full py-10 md:col-span-12 md:px-10 lg:m-auto lg:max-w-[1200px]'>
-          <div className='mb-4'>
-            <img src={footer_logo.url} alt={footer_logo.alt} />
-          </div>
-          <p className='text-base-14 text-neutral-500'>&copy; 2024 Mingle. All Rights Reserved.</p>
-        </div>
-      </footer>
+        <Footer />
+      </main>
     </div>
   );
 };
