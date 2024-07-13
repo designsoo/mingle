@@ -50,11 +50,31 @@ export const PNGS = {
     url: `${CLOUDFLARE_URL}/e25990d4-511c-4c38-91c6-eeeab7f55700/${PREVIEW_PAPER_SIZE}`,
     alt: 'card background image',
   },
+  ipad: {
+    url: `${CLOUDFLARE_URL}/ac07fdb5-43e8-48b0-b805-97d4c4d35500/${PREVIEW_PAPER_SIZE}`,
+    alt: 'mingle ipad image',
+  },
+  iphone: {
+    url: `${CLOUDFLARE_URL}/ded546f3-e351-4d88-f98d-deb20c882900/${PREVIEW_PAPER_SIZE}`,
+    alt: 'mingle iphone image',
+  },
+  banner_emoji: {
+    url: `${CLOUDFLARE_URL}/2fc90bf1-521f-4b3f-2c17-e5ddd6ae3000/${PREVIEW_PAPER_SIZE}`,
+    alt: 'emoji image',
+  },
+  banner_celebrate: {
+    url: `${CLOUDFLARE_URL}/5f0d57cb-c603-4007-3069-bb957def0900/${PREVIEW_PAPER_SIZE}`,
+    alt: 'celebrate image',
+  },
 };
 
 export const SVGS = {
   logo: {
     url: `${CLOUDFLARE_URL}/64c2ebd4-300b-405f-1de0-664672b8d100/width=124,height=36`,
+    alt: 'mingle logo',
+  },
+  footer_logo: {
+    url: `${CLOUDFLARE_URL}/c4f2aa24-49ef-4943-43a1-f27e8e332400/width=124,height=36`,
     alt: 'mingle logo',
   },
   add: {
