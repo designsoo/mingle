@@ -5,3 +5,4 @@ export * from './tabList';
 export * from './endpoints';
 export * from './translateToAuth';
 export * from './breakpoint';
+export * from './bannerContent';
