@@ -110,7 +110,7 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
           {isBoardDataLoading ? (
             <BoardSkeleton />
           ) : (
-            <div className='m-auto flex max-w-[1120px] flex-col gap-2 px-5 lg:px-10 xl:px-0'>
+            <div className='xl:px-0 m-auto flex max-w-[1120px] flex-col gap-2 px-5 pr-0 md:pr-5 lg:px-10'>
               <BoardName isEdit={isEdit} name={name} boardId={boardId} />
               <div
                 className={`${isEdit && '!flexbox-column-center h-9'} flexbox-column-start md:!flexbox-row-between gap-3 md:h-9`}
@@ -122,12 +122,12 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
           )}
 
           <div className='mt-6 h-[52px] w-full border-y border-neutral-800'>
-            <div className='m-auto max-w-[1120px] sm-scroll-hidden lg:px-10 xl:px-0'>
+            <div className='xl:px-0 m-auto max-w-[1120px] sm-scroll-hidden lg:px-10'>
               <TabList tabList={AUTHOR_LIST} size='lg' onClick={setSelectedTab} />
             </div>
           </div>
 
-          <section className='m-auto max-w-[1120px] px-5 lg:px-10 xl:px-0'>
+          <section className='xl:px-0 m-auto max-w-[1120px] px-5 lg:px-10'>
             <div className='relative flex items-center justify-between py-6'>
               <div className='flex h-9 items-center gap-2'>
                 <span className='text-bold-18'>{TRANSLATE_TO_EN[selectedTab]}</span>
