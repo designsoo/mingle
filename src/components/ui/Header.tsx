@@ -8,7 +8,11 @@ const {
 
 const { landing } = ROUTER_PATH;
 
-const Header = () => {
+interface HeaderProps {
+  isLanding?: boolean;
+}
+
+const Header = ({ isLanding = false }: HeaderProps) => {
   const location = useLocation();
 
   return (
@@ -18,19 +22,24 @@ const Header = () => {
           <img src={url} alt={alt} width={100} height={30} />
         </Link>
       </h1>
-      <nav className='flex flex-row gap-8'>
-        {NAV_LIST.map(({ id, value, path }) => {
-          const isActive = location.pathname === path;
-          const { url, alt } = isActive ? value.active : value.default;
 
-          return (
-            <Link key={`menu-${id}`} to={path} className='flexbox-row-center size-8'>
-              <img src={url} alt={alt} />
-            </Link>
-          );
-        })}
-      </nav>
-      <div></div>
+      {!isLanding && (
+        <>
+          <nav className='flex flex-row gap-8'>
+            {NAV_LIST.map(({ id, value, path }) => {
+              const isActive = location.pathname === path;
+              const { url, alt } = isActive ? value.active : value.default;
+
+              return (
+                <Link key={`menu-${id}`} to={path} className='flexbox-row-center size-8'>
+                  <img src={url} alt={alt} width={24} height={24} />
+                </Link>
+              );
+            })}
+          </nav>
+          <div></div>
+        </>
+      )}
     </header>
   );
 };
