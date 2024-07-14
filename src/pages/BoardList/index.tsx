@@ -8,6 +8,7 @@ import BoardCard from '@/components/pages/boardList/BoardCard';
 import BoardCardListSkeleton from '@/components/pages/boardList/BoardCardListSkeleton';
 import EmptyBoardCards from '@/components/pages/boardList/EmptyBoardCards';
 import Header from '@/components/ui/Header';
+import NavigationBar from '@/components/ui/NavigationBar';
 import { BoardResults } from '@/types/recipients';
 
 import { useGetBoardList } from './data-access/useGetBoardList';
@@ -60,10 +61,10 @@ const BoardList = () => {
       <Header />
       <main className='m-auto flex max-w-[1120px] flex-col gap-4 py-[100px] pl-5 lg:pl-0'>
         <section className='popular-board'>
-          <div className='flex justify-between'>
-            <h2 className='mb-2 text-bold-24 text-yellow-200'>🎉 Popular Board</h2>
+          <div className='flex justify-between pr-5'>
+            <h2 className='mb-2 text-bold-24 text-yellow-200'>Popular Board</h2>
             {popularBoardData?.length > 4 && (
-              <div className='flex gap-2'>
+              <div className='hidden gap-2 lg:flex'>
                 <IconButton
                   iconAlt={left.alt}
                   iconUrl={left.url}
@@ -91,7 +92,7 @@ const BoardList = () => {
                 <ul className='flex flex-row gap-5'>
                   {popularBoardData?.map((board: BoardResults) => (
                     <li key={board.id}>
-                      <BoardCard board={board} />
+                      <BoardCard board={board} cardWidth={'265px'} />
                     </li>
                   ))}
                 </ul>
@@ -100,8 +101,8 @@ const BoardList = () => {
           </div>
         </section>
 
-        <section className='latest-board'>
-          <div className='mt-10 flex items-center justify-between'>
+        <section className='latest-board pr-5 lg:pr-0'>
+          <div className='mt-10 flex flex-col gap-3 md:!flex-row md:items-center md:justify-between'>
             <h2 className='mb-2 text-bold-24'>Latest Board</h2>
             <div className='flex items-center gap-4'>
               <label htmlFor='search'>
@@ -132,7 +133,7 @@ const BoardList = () => {
             ) : (
               <>
                 {isLatestBoardEmpty && <EmptyBoardCard />}
-                <ul className='grid grid-cols-4 gap-x-5 gap-y-8'>
+                <ul className='grid grid-cols-1 gap-x-5 gap-y-8 md:grid-cols-2 lg:grid-cols-4'>
                   {filteredBoard?.map((board: BoardResults) => (
                     <li key={board.id}>
                       <BoardCard board={board} />
@@ -144,6 +145,7 @@ const BoardList = () => {
           </div>
         </section>
       </main>
+      <NavigationBar />
     </div>
   );
 };
