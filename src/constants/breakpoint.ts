@@ -1,6 +1,6 @@
 export const BREAK_POINT = {
-  pc: 1919,
-  laptop: 1283,
-  tablet: 1023,
-  mobile: 767,
+  pc: 1920,
+  laptop: 1284,
+  tablet: 1024,
+  mobile: 768,
 };
