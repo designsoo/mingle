@@ -27,7 +27,7 @@ const Header = ({ isLanding = false }: HeaderProps) => {
 
       {!isLanding && (
         <>
-          <nav className='flex flex-row gap-8'>
+          <nav className='hidden md:flex md:flex-row md:gap-8'>
             {NAV_LIST.map(({ id, value, path }) => {
               const isActive = location.pathname === path;
               const { url, alt } = isActive ? value.active : value.default;
