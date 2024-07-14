@@ -8,18 +8,20 @@ import { BoardResults } from '@/types/recipients';
 
 interface BoardCardProps {
   board: BoardResults;
+  cardWidth?: string;
 }
 
-const BoardCard = ({ board }: BoardCardProps) => {
+const BoardCard = ({ board, cardWidth = '100%' }: BoardCardProps) => {
   const { id, backgroundColor, backgroundImageURL, name, messageCount, topReactions } = board;
 
   const backgroundUrl = getBackgroundImageUrl(backgroundColor, backgroundImageURL);
 
   return (
     <article
-      className='base-transition h-[320px] w-[265px] overflow-hidden rounded-2xl p-4 hover:-translate-y-3'
+      className='base-transition h-[320px] overflow-hidden rounded-2xl p-4 hover:-translate-y-3'
       style={{
         background: `url(${backgroundUrl}) no-repeat center / cover`,
+        width: `${cardWidth}`,
       }}
     >
       <Link to={`/board/${id}`} className='flex h-full w-full flex-col justify-end'>
