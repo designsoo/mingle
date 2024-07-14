@@ -3,6 +3,9 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      colors: {
+        'landing-black': '#030307',
+      },
       fontFamily: {
         jakarta: 'Plus Jakarta Sans',
       },
@@ -151,7 +154,8 @@ export default {
     },
     screens: {
       md: '768px',
-      lg: '1024px',
+      lg: '1025px',
+      xl: '1280px',
     },
   },
   plugins: [
