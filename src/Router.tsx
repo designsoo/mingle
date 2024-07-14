@@ -1,29 +1,33 @@
+import { Suspense, lazy } from 'react';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { ROUTER_PATH } from '@/constants';
 
-import AddCard from '@/pages/AddCard';
-import BoardList from '@/pages/BoardList';
-import CreateBoard from '@/pages/CreateBoard';
-import DetailBoard from '@/pages/DetailBoard';
-import EditBoard from '@/pages/EditBoard';
-import Landing from '@/pages/Landing';
-import NotFound from '@/pages/NotFound';
+const Landing = lazy(() => import('@/pages/Landing'));
+const BoardList = lazy(() => import('@/pages/BoardList'));
+const CreateBoard = lazy(() => import('@/pages/CreateBoard'));
+const DetailBoard = lazy(() => import('@/pages/DetailBoard'));
+const EditBoard = lazy(() => import('@/pages/EditBoard'));
+const AddCard = lazy(() => import('@/pages/AddCard'));
+const NotFound = lazy(() => import('@/pages/NotFound'));
 
 const { landing, createBoard, detailBoard, editBoard, addCard, boardList } = ROUTER_PATH;
 
 const MyRouter = () => {
   return (
     <Router>
-      <Routes>
-        <Route path={createBoard} element={<CreateBoard />} />
-        <Route path={detailBoard} element={<DetailBoard />} />
-        <Route path={editBoard} element={<EditBoard />} />
-        <Route path={addCard} element={<AddCard />} />
-        <Route path={boardList} element={<BoardList />} />
-        <Route path={landing} element={<Landing />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path={createBoard} element={<CreateBoard />} />
+          <Route path={detailBoard} element={<DetailBoard />} />
+          <Route path={editBoard} element={<EditBoard />} />
+          <Route path={addCard} element={<AddCard />} />
+          <Route path={boardList} element={<BoardList />} />
+          <Route path={landing} element={<Landing />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 };
