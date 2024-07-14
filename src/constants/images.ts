@@ -50,13 +50,9 @@ export const PNGS = {
     url: `${CLOUDFLARE_URL}/e25990d4-511c-4c38-91c6-eeeab7f55700/${PREVIEW_PAPER_SIZE}`,
     alt: 'card background image',
   },
-  ipad: {
-    url: `${CLOUDFLARE_URL}/ac07fdb5-43e8-48b0-b805-97d4c4d35500/${PREVIEW_PAPER_SIZE}`,
-    alt: 'mingle ipad image',
-  },
-  iphone: {
-    url: `${CLOUDFLARE_URL}/ded546f3-e351-4d88-f98d-deb20c882900/${PREVIEW_PAPER_SIZE}`,
-    alt: 'mingle iphone image',
+  deviceMockup: {
+    url: `${CLOUDFLARE_URL}/4dd164fa-a16c-47be-0d69-68871a286b00/${PREVIEW_PAPER_SIZE}`,
+    alt: 'mingle ipad, iphone image',
   },
   banner_emoji: {
     url: `${CLOUDFLARE_URL}/2fc90bf1-521f-4b3f-2c17-e5ddd6ae3000/${PREVIEW_PAPER_SIZE}`,
@@ -65,6 +61,20 @@ export const PNGS = {
   banner_celebrate: {
     url: `${CLOUDFLARE_URL}/5f0d57cb-c603-4007-3069-bb957def0900/${PREVIEW_PAPER_SIZE}`,
     alt: 'celebrate image',
+  },
+  cta: {
+    pc: {
+      url: `${CLOUDFLARE_URL}/f2bf7403-df6a-4cde-c272-a0fad930fd00/width=3840,height=2160`,
+      alt: 'mingle banner image',
+    },
+    tablet: {
+      url: `${CLOUDFLARE_URL}/dd17e7d1-1a6c-4e96-dc2e-1fe36f8c0000/width=1640,height=1180`,
+      alt: 'mingle banner image',
+    },
+    mobile: {
+      url: `${CLOUDFLARE_URL}/4cf2827b-2085-4c3b-5d03-a921e8f0b500/width=1534,height=1480`,
+      alt: 'mingle banner image',
+    },
   },
 };
 
