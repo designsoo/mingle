@@ -57,27 +57,6 @@
     width: calc(100vw - 40px);
   }
 
-  .cta {
-    background-image: url('/src/assets/mg-CTA.png');
-    background-position: right;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
-  .cta-tablet {
-    background-image: url('/src/assets/mg-CTA-Tablet.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
-  .cta-mobile {
-    background-image: url('/src/assets/mg-CTA-mobile.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
   .banner-base {
     @apply w-full rounded-2xl bg-neutral-900 px-6 py-10;
   }
