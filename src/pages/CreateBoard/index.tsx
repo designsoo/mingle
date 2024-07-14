@@ -10,6 +10,7 @@ import BackgroundColorOptions from '@/components/pages/createBoard/BackgroundCol
 import BackgroundImageOptions from '@/components/pages/createBoard/BackgroundImageOptions';
 import PreviewBoard from '@/components/pages/createBoard/PreviewBoard';
 import Header from '@/components/ui/Header';
+import NavigationBar from '@/components/ui/NavigationBar';
 import { checkUploadStatus, uploadImageCloudflare } from '@/pages/CreateBoard/data-access/cloudflareImageService';
 import { useCreateBoard } from '@/pages/CreateBoard/data-access/useCreateBoard';
 
@@ -140,6 +141,7 @@ const CreateBoard = () => {
           </form>
         </FormProvider>
       </main>
+      <NavigationBar />
     </div>
   );
 };
