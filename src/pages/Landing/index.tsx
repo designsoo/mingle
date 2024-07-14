@@ -2,28 +2,48 @@ import { Link } from 'react-router-dom';
 
 import { PNGS, bannerContent } from '@/constants';
 
+import BannerContent from '@/components/pages/landing/BannerContent';
+import BannerImage from '@/components/pages/landing/BannerImage';
+import SubBanner from '@/components/pages/landing/SubBanner';
 import Footer from '@/components/ui/Footer';
 import Header from '@/components/ui/Header';
+import { useDeviceType } from '@/hooks/useDeviceType';
 
-const { ipad, iphone, banner_emoji, banner_celebrate } = PNGS;
-
+const { deviceMockup, banner_emoji, banner_celebrate, cta } = PNGS;
 const { dashboard, emoji, celebrate, share, write } = bannerContent;
 
 const Landing = () => {
+  const deviceType = useDeviceType();
+
+  const backgroundImageUrl = () => {
+    if (deviceType === 'Mobile') {
+      return cta.mobile.url;
+    } else if (deviceType === 'Tablet') {
+      return cta.tablet.url;
+    } else {
+      return cta.pc.url;
+    }
+  };
+
   return (
     <div>
       <Header isLanding />
-      <main className='bg-[#030307]'>
-        <section className='cta-mobile md:cta-tablet lg:cta min-h-screen overflow-hidden'>
+      <main className='bg-landing-black'>
+        <section
+          style={{
+            background: `url(${backgroundImageUrl()}) no-repeat center / cover`,
+          }}
+          className='min-h-[740px] overflow-hidden md:min-h-screen'
+        >
           <h2 className='visually-hidden'>CTA Banner</h2>
-          <div className='m-auto pt-28 text-center md:absolute md:left-12 md:top-1/2 md:-translate-y-1/2 md:!text-left lg:left-20'>
-            <h3 className='text-base-32 *:block md:text-[40px]'>
+          <div className='m-auto flex flex-col items-center justify-center gap-6 pt-28 md:gap-12 md:pt-40 lg:absolute lg:left-20 lg:top-1/2 lg:-translate-y-1/2 lg:items-start lg:pt-0'>
+            <h3 className='flex flex-col items-center justify-center gap-0 text-base-32 *:block md:text-6xl lg:items-start lg:text-5xl'>
               <span className='pb-1 text-neutral-500 md:pb-4'>Get Your Create</span>
               <span className='text-neutral-100'>Mingle Board</span>
             </h3>
             <Link
               to={'/list'}
-              className='base-transition mt-6 inline-block h-12 rounded-full border border-neutral-100 px-6 text-base leading-[48px] hover:border-yellow-300 hover:bg-yellow-300 hover:text-neutral-900 md:mt-10'
+              className='base-transition inline-block h-12 rounded-full border border-neutral-100 px-6 text-base leading-[48px] hover:border-yellow-300 hover:bg-yellow-300 hover:text-neutral-900 md:!h-14 md:px-6 md:text-base-18 md:leading-[56px]'
             >
               Get Started
             </Link>
@@ -35,62 +55,29 @@ const Landing = () => {
             Make Every Moment Memorable
           </h2>
 
-          {/* 첫번째 배너 */}
           <div className='banner-base flexbox-column-center md:flexbox-row-reverse col-span-4 gap-10 md:col-span-12 lg:gap-16 lg:rounded-3xl lg:px-12'>
-            {/* 디바이스 이미지 */}
             <div className='flexbox-column-center relative'>
-              <div className='ml-4 w-[80%] md:ml-12 md:w-[350px] lg:w-[420px]'>
-                <img src={ipad.url} alt={ipad.alt} />
-              </div>
-              <div className='absolute -bottom-2 left-3 w-[20%] md:-left-8 md:w-[26%]'>
-                <img src={iphone.url} alt={iphone.alt} />
-              </div>
+              <BannerImage imageUrl={deviceMockup.url} imageAlt={deviceMockup.alt} />
             </div>
-            {/* text */}
-            <div className='*:text-center md:max-w-[380px] md:grow md:*:text-start lg:max-w-[430px]'>
+            <div className='*:text-center md:max-w-[360px] md:grow md:*:text-start lg:max-w-[430px]'>
               <h3 className='mb-8 text-bold-20 lg:text-bold-28'>{dashboard.title}</h3>
               <p className='pb-4 text-sm text-neutral-500 lg:text-lg'>{dashboard.description}</p>
             </div>
           </div>
 
-          {/* 2-두번째 배너 */}
           <div className='flexbox-column-reverse col-span-4 gap-5 md:col-span-6'>
             <div className='banner-vertical'>
-              {/* 2-이모지 이미지 */}
-              <div className='w-[80%] min-w-[300px] lg:w-[400px]'>
-                <img src={banner_emoji.url} alt={banner_emoji.alt} />
-              </div>
-              {/* 2-text */}
-              <div className='text-center lg:max-w-[430px]'>
-                <h3 className='mb-4 text-bold-20 lg:mb-8 lg:text-bold-28'>{emoji.title}</h3>
-                <p className='text-base-14 text-neutral-500 lg:!text-base-18'>{emoji.description}</p>
-              </div>
+              <BannerImage imageUrl={banner_emoji.url} imageAlt={banner_emoji.alt} />
+              <BannerContent title={emoji.title} description={emoji.description} />
             </div>
-            {/* 2-주황 */}
-            <div className='sub-banner bg-orange-300'>
-              <h3 className='mb-2 text-bold-20 text-neutral-950 lg:text-3xl'>{share.title}</h3>
-              <p className='text-bold-14 text-neutral-950'>{share.description}</p>
-            </div>
+            <SubBanner bannerColor='#FDBA74' title={share.title} description={share.description} />
           </div>
 
-          {/* 3-세번째 배너 */}
           <div className='flexbox-column-between-center md:flexbox-column-reverse col-span-4 gap-5 md:col-span-6'>
-            {/* 3-노랑 */}
-            <div className='sub-banner bg-yellow-300'>
-              <h3 className='mb-2 text-bold-20 text-neutral-950 lg:text-3xl'>{write.title}</h3>
-              <p className='text-bold-14 text-neutral-950'>{write.description}</p>
-            </div>
-
+            <SubBanner bannerColor='#F5E724' title={write.title} description={write.description} />
             <div className='banner-vertical'>
-              {/* 3-text */}
-              <div className='mb-3 text-center lg:max-w-[430px]'>
-                <h3 className='mb-4 text-bold-20 lg:mb-8 lg:text-bold-28'>{celebrate.title}</h3>
-                <p className='text-base-14 text-neutral-500 lg:!text-base-18'>{celebrate.description}</p>
-              </div>
-              {/* 3-캐릭터 이미지 */}
-              <div className='w-[80%] min-w-[300px] lg:w-[400px]'>
-                <img src={banner_celebrate.url} alt={banner_celebrate.alt} />
-              </div>
+              <BannerContent title={celebrate.title} description={celebrate.description} />
+              <BannerImage imageUrl={banner_celebrate.url} imageAlt={banner_celebrate.alt} />
             </div>
           </div>
         </section>
