@@ -23,6 +23,7 @@ const BackgroundColorOptions = ({ colorList, selectedImage, onClick, setFile }: 
         <li key={`color-option-${color.id}`} className='w-full'>
           <button
             type='button'
+            aria-label='background-color-options'
             onClick={() => handleColorOptionClick(color.id, color.value, color.type)}
             style={{
               backgroundImage: `url(${color.value})`,
