@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dropdown, IconButton, TabList, PrimaryButton } from 'mingle-ui';
+import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -16,6 +17,7 @@ import ConfirmDeleteModal from '@/components/pages/detailBoard/ConfirmDeleteModa
 import ConfirmPasswordModal from '@/components/pages/detailBoard/ConfirmPasswordModal';
 import EmojiList from '@/components/pages/detailBoard/EmojiList';
 import Header from '@/components/ui/Header';
+import NavigationBar from '@/components/ui/NavigationBar';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import useMultiState from '@/hooks/useMultiState';
 import { useGetBoardData } from '@/pages/DetailBoard/data-access/useGetBoardData';
@@ -103,96 +105,103 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
   };
 
   return (
-    <div>
-      <Header />
-      <main className='pb-[60px] pt-[100px]'>
-        <div>
-          {isBoardDataLoading ? (
-            <BoardSkeleton />
-          ) : (
-            <div className='xl:px-0 m-auto flex max-w-[1120px] flex-col gap-2 px-5 pr-0 md:pr-5 lg:px-10'>
-              <BoardName isEdit={isEdit} name={name} boardId={boardId} />
-              <div
-                className={`${isEdit && '!flexbox-column-center h-9'} flexbox-column-start md:!flexbox-row-between gap-3 md:h-9`}
-              >
-                <BoardCount paperCount={boardData?.messageCount} reactionCount={boardData?.reactionCount} />
-                {!isEdit && <EmojiList boardId={boardId} />}
-              </div>
-            </div>
-          )}
+    <>
+      <Helmet>
+        <title>Mingle | {name}&apos;s Board</title>
+      </Helmet>
 
-          <div className='mt-6 h-[52px] w-full border-y border-neutral-800'>
-            <div className='xl:px-0 m-auto max-w-[1120px] sm-scroll-hidden lg:px-10'>
-              <TabList tabList={AUTHOR_LIST} size='lg' onClick={setSelectedTab} />
-            </div>
-          </div>
-
-          <section className='xl:px-0 m-auto max-w-[1120px] px-5 lg:px-10'>
-            <div className='relative flex items-center justify-between py-6'>
-              <div className='flex h-9 items-center gap-2'>
-                <span className='text-bold-18'>{TRANSLATE_TO_EN[selectedTab]}</span>
-                <span className='mt-[2px] text-bold-13 text-yellow-300'>{filteredMessages?.length}</span>
-              </div>
-
-              <div className='flex gap-2'>
-                <div className={dropdownPosition}>
-                  <Dropdown size='sm' selectList={SORT_OPTIONS} onClick={setSelectedSortOption} />
-                </div>
-                {!isEdit && (
-                  <IconButton
-                    iconUrl={kakao.url}
-                    iconAlt={kakao.alt}
-                    iconSize={20}
-                    variant='stroke'
-                    onClick={() => {}}
-                  />
-                )}
-              </div>
-            </div>
-
-            <CardList
-              isEdit={isEdit}
-              boardId={boardId}
-              isMessagesLoading={isBoardDataLoading}
-              filteredMessages={filteredMessages}
-            />
-
-            {isFetchingNextPage && (
-              <div className='flexbox-row-center my-4'>
-                <span>Loading...</span>
-              </div>
-            )}
-
-            <div ref={setTrigger} className='size-10 bg-transparent'></div>
-          </section>
-
-          <div className='fixed bottom-5 left-0 right-0 z-20 m-auto max-w-[800px] px-5'>
-            {isEdit ? (
-              <PrimaryButton size='lg' variant='destructive' disabled={isDeleteLoading} onClick={DeleteButtonClick}>
-                Delete Board
-              </PrimaryButton>
+      <div>
+        <Header />
+        <main className='pb-[60px] pt-[100px]'>
+          <div>
+            {isBoardDataLoading ? (
+              <BoardSkeleton />
             ) : (
-              <PrimaryButton size='lg' onClick={navigateToAddCardPage}>
-                Add Card
-              </PrimaryButton>
+              <div className='m-auto flex max-w-[1120px] flex-col gap-2 px-5 pr-0 md:pr-5 lg:px-10 xl:px-0'>
+                <BoardName isEdit={isEdit} name={name} boardId={boardId} />
+                <div
+                  className={`${isEdit && '!flexbox-column-center h-9'} flexbox-column-start md:!flexbox-row-between gap-3 md:h-9`}
+                >
+                  <BoardCount paperCount={boardData?.messageCount} reactionCount={boardData?.reactionCount} />
+                  {!isEdit && <EmojiList boardId={boardId} />}
+                </div>
+              </div>
             )}
+
+            <div className='mt-6 h-[52px] w-full border-y border-neutral-800'>
+              <div className='m-auto max-w-[1120px] sm-scroll-hidden lg:px-10 xl:px-0'>
+                <TabList tabList={AUTHOR_LIST} size='lg' onClick={setSelectedTab} />
+              </div>
+            </div>
+
+            <section className='m-auto max-w-[1120px] px-5 lg:px-10 xl:px-0'>
+              <div className='relative flex items-center justify-between py-6'>
+                <div className='flex h-9 items-center gap-2'>
+                  <span className='text-bold-18'>{TRANSLATE_TO_EN[selectedTab]}</span>
+                  <span className='mt-[2px] text-bold-13 text-yellow-300'>{filteredMessages?.length}</span>
+                </div>
+
+                <div className='flex gap-2'>
+                  <div className={dropdownPosition}>
+                    <Dropdown size='sm' selectList={SORT_OPTIONS} onClick={setSelectedSortOption} />
+                  </div>
+                  {!isEdit && (
+                    <IconButton
+                      iconUrl={kakao.url}
+                      iconAlt={kakao.alt}
+                      iconSize={20}
+                      variant='stroke'
+                      onClick={() => {}}
+                    />
+                  )}
+                </div>
+              </div>
+
+              <CardList
+                isEdit={isEdit}
+                boardId={boardId}
+                isMessagesLoading={isBoardDataLoading}
+                filteredMessages={filteredMessages}
+              />
+
+              {isFetchingNextPage && (
+                <div className='flexbox-row-center my-4'>
+                  <span>Loading...</span>
+                </div>
+              )}
+
+              <div ref={setTrigger} className='size-10 bg-transparent'></div>
+            </section>
+
+            <div className='fixed bottom-[68px] left-0 right-0 z-20 m-auto max-w-[800px] px-5 md:bottom-6'>
+              {isEdit ? (
+                <PrimaryButton size='lg' variant='destructive' disabled={isDeleteLoading} onClick={DeleteButtonClick}>
+                  Delete Board
+                </PrimaryButton>
+              ) : (
+                <PrimaryButton size='lg' onClick={navigateToAddCardPage}>
+                  Add Card
+                </PrimaryButton>
+              )}
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+        <NavigationBar />
 
-      <ConfirmPasswordModal
-        formMethods={methods}
-        isOpenPasswordModal={multiState.confirmPasswordModal}
-        onClose={handleToggleConfirmPasswordModal}
-        onSubmit={onSubmit}
-      />
+        <ConfirmPasswordModal
+          formMethods={methods}
+          isOpenPasswordModal={multiState.confirmPasswordModal}
+          onClose={handleToggleConfirmPasswordModal}
+          onSubmit={onSubmit}
+        />
 
-      <ConfirmDeleteModal
-        isOpenDeleteModal={multiState.confirmDeleteModal}
-        onClose={handleToggleConfirmDeletedModal}
-        handleDeleteCard={handleDeleteBoard}
-      />
-    </div>
+        <ConfirmDeleteModal
+          isOpenDeleteModal={multiState.confirmDeleteModal}
+          onClose={handleToggleConfirmDeletedModal}
+          handleDeleteCard={handleDeleteBoard}
+        />
+      </div>
+    </>
   );
 };
 
