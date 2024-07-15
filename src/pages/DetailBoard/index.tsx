@@ -2,13 +2,13 @@ import { useMemo, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dropdown, IconButton, TabList, PrimaryButton } from 'mingle-ui';
-import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { AUTHOR_LIST, SORT_OPTIONS, SVGS, TRANSLATE_TO_EN } from '@/constants';
 import { splitByDelimiter } from '@/utils';
 
+import MetaData from '@/components/MetaData';
 import BoardCount from '@/components/pages/detailBoard/BoardCount';
 import BoardName from '@/components/pages/detailBoard/BoardName';
 import BoardSkeleton from '@/components/pages/detailBoard/BoardSkeleton';
@@ -106,10 +106,7 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
 
   return (
     <>
-      <Helmet>
-        <title>Mingle | {name}&apos;s Board</title>
-      </Helmet>
-
+      <MetaData title={`Mingle | ${name}'s Board`} />
       <div>
         <Header />
         <main className='pb-[60px] pt-[100px]'>
