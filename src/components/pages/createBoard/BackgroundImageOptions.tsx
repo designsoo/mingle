@@ -79,8 +79,9 @@ const BackgroundImageOptions = ({
       {imageList.map((image) => (
         <li key={`image-option-${image.id}`} className='w-full'>
           <button
-            onClick={() => handleButtonClick(image.id, image.value, image.type)}
             type='button'
+            aria-label='background-image-options'
+            onClick={() => handleButtonClick(image.id, image.value, image.type)}
             style={{
               backgroundImage: `url(${image.value})`,
               backgroundRepeat: 'no-repeat',
