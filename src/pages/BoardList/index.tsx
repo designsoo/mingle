@@ -90,7 +90,7 @@ const BoardList = () => {
 
             <div className='max-w-[1120px] overflow-x-scroll scroll-smooth pt-5 scrollbar-hide' ref={sliderRef}>
               {isBoardLoading ? (
-                <BoardCardListSkeleton />
+                <BoardCardListSkeleton isPopular />
               ) : (
                 <>
                   {isPopularBoardEmpty && <EmptyBoardCards />}
