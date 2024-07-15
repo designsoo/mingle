@@ -4,6 +4,23 @@ export const PREVIEW_PAPER_SIZE = 'width=600,height=800';
 export const ICON_SIZE_24 = 'width=24,height=24';
 export const ICON_SIZE_20 = 'width=20,height=20';
 
+import add from '@/assets/ic-add.svg';
+import arrow_left from '@/assets/ic-arrow-left.svg';
+import arrow_right from '@/assets/ic-arrow-right.svg';
+import dashboard_active from '@/assets/ic-dashboard-active.svg';
+import dashboard from '@/assets/ic-dashboard.svg';
+import emoji from '@/assets/ic-emoji.svg';
+import homed_active from '@/assets/ic-home-active.svg';
+import home from '@/assets/ic-home.svg';
+import kakao from '@/assets/ic-kakao.svg';
+import members from '@/assets/ic-members.svg';
+import search_active from '@/assets/ic-search-active.svg';
+import search from '@/assets/ic-search.svg';
+import setting_active from '@/assets/ic-setting-active.svg';
+import setting from '@/assets/ic-setting.svg';
+import logo from '@/assets/mg-logo-color.svg';
+import footer_logo from '@/assets/mg-logo-gray.svg';
+
 export const PAPER_BACKGROUND_COLORS = [
   {
     id: 'blue',
@@ -51,15 +68,15 @@ export const PNGS = {
     alt: 'card background image',
   },
   deviceMockup: {
-    url: `${CLOUDFLARE_URL}/4dd164fa-a16c-47be-0d69-68871a286b00/${PREVIEW_PAPER_SIZE}`,
+    url: `${CLOUDFLARE_URL}/4dd164fa-a16c-47be-0d69-68871a286b00/width=1380,height=864`,
     alt: 'mingle ipad, iphone image',
   },
   banner_emoji: {
-    url: `${CLOUDFLARE_URL}/2fc90bf1-521f-4b3f-2c17-e5ddd6ae3000/${PREVIEW_PAPER_SIZE}`,
+    url: `${CLOUDFLARE_URL}/2fc90bf1-521f-4b3f-2c17-e5ddd6ae3000/width=840,height=900`,
     alt: 'emoji image',
   },
   banner_celebrate: {
-    url: `${CLOUDFLARE_URL}/5f0d57cb-c603-4007-3069-bb957def0900/${PREVIEW_PAPER_SIZE}`,
+    url: `${CLOUDFLARE_URL}/5f0d57cb-c603-4007-3069-bb957def0900/width=820,height=760`,
     alt: 'celebrate image',
   },
   cta: {
@@ -80,63 +97,63 @@ export const PNGS = {
 
 export const SVGS = {
   logo: {
-    url: `${CLOUDFLARE_URL}/64c2ebd4-300b-405f-1de0-664672b8d100/width=124,height=36`,
+    url: logo,
     alt: 'mingle logo',
   },
   footer_logo: {
-    url: `${CLOUDFLARE_URL}/c4f2aa24-49ef-4943-43a1-f27e8e332400/width=124,height=36`,
+    url: footer_logo,
     alt: 'mingle logo',
   },
   add: {
-    url: `${CLOUDFLARE_URL}/b73456b8-a828-42f6-1b78-6b2ccc7eea00/${ICON_SIZE_24}`,
+    url: add,
     alt: 'add icon',
   },
   dashboard: {
     default: {
-      url: `${CLOUDFLARE_URL}/b210ca4d-df7c-4281-b47a-6ae943db9200/${ICON_SIZE_24}`,
+      url: dashboard,
       alt: 'dashboard add icon',
     },
     active: {
-      url: `${CLOUDFLARE_URL}/dba1d6ae-0fd1-4171-6eb5-2727e1b8c500/${ICON_SIZE_24}`,
+      url: dashboard_active,
       alt: 'dashboard add icon',
     },
   },
   search: {
     default: {
-      url: `${CLOUDFLARE_URL}/8abb0829-1e26-45fb-545f-1ec69abca900/${ICON_SIZE_24}`,
+      url: search,
       alt: 'search icon',
     },
     active: {
-      url: `${CLOUDFLARE_URL}/c7de8bf3-eb23-4874-c2b7-45e9c5a64600/${ICON_SIZE_24}`,
+      url: search_active,
       alt: 'search icon',
     },
   },
   home: {
     default: {
-      url: `${CLOUDFLARE_URL}/6d51d75b-fa63-497c-bc51-7b8b12a1a200/${ICON_SIZE_24}`,
+      url: home,
       alt: 'home icon',
     },
     active: {
-      url: `${CLOUDFLARE_URL}/c872fb60-96e5-4780-0c6f-fd20c3714800/${ICON_SIZE_24}`,
+      url: homed_active,
       alt: 'home icon',
     },
   },
   setting: {
     default: {
-      url: `${CLOUDFLARE_URL}/68d2441c-849b-46de-e10e-bc2639529d00/${ICON_SIZE_24}`,
+      url: setting,
       alt: 'setting icon',
     },
     active: {
-      url: `${CLOUDFLARE_URL}/62035cbb-82db-4823-9ede-78b37ac9fe00/${ICON_SIZE_24}`,
+      url: setting_active,
       alt: 'setting icon',
     },
   },
   emoji: {
-    url: `${CLOUDFLARE_URL}/97270bfb-6b8d-47e8-1287-cb467772ce00/${ICON_SIZE_24}`,
+    url: emoji,
     alt: 'emoji add icon',
   },
   kakao: {
-    url: `${CLOUDFLARE_URL}/39031bf6-aed5-4c8b-3152-10b289253000/${ICON_SIZE_24}`,
+    url: kakao,
     alt: 'kakao share icon',
   },
   delete: {
@@ -150,16 +167,16 @@ export const SVGS = {
     },
   },
   members: {
-    url: `${CLOUDFLARE_URL}/979d6cac-f641-43ab-5c99-922d45373e00/${ICON_SIZE_20}`,
+    url: members,
     alt: 'members icon',
   },
   arrow: {
     left: {
-      url: `${CLOUDFLARE_URL}/517fe462-7bfb-4ba9-b2cd-65e9474aca00/${ICON_SIZE_20}`,
+      url: arrow_left,
       alt: 'arrow left icon',
     },
     right: {
-      url: `${CLOUDFLARE_URL}/c3e8443f-b224-4b4e-8ea4-8747db312c00/${ICON_SIZE_20}`,
+      url: arrow_right,
       alt: 'arrow right icon',
     },
   },
