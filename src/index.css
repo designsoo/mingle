@@ -62,7 +62,7 @@
   }
 
   .banner-vertical {
-    @apply flexbox-column-between-center w-full gap-5 rounded-2xl bg-neutral-900 px-6 py-10 md:min-h-[530px] lg:min-h-[720px] lg:rounded-3xl lg:py-14;
+    @apply flexbox-column-between-center w-full gap-5 rounded-2xl bg-neutral-900 px-6 py-10 md:min-h-[500px] lg:min-h-[720px] lg:rounded-3xl lg:py-14;
   }
 
   .sub-banner {
@@ -182,7 +182,7 @@
 .ql-container.ql-snow {
   width: 100%;
   border-radius: 0 0 8px 8px;
-  @apply border-neutral-800;
+  @apply !border-neutral-800;
 }
 
 .ql-picker-label {
