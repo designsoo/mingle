@@ -1,8 +1,8 @@
-import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 
 import { META_DATA, PNGS, bannerContent } from '@/constants';
 
+import MetaData from '@/components/MetaData';
 import BannerContent from '@/components/pages/landing/BannerContent';
 import BannerImage from '@/components/pages/landing/BannerImage';
 import SubBanner from '@/components/pages/landing/SubBanner';
@@ -28,12 +28,7 @@ const Landing = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{META_DATA.title}</title>
-        <meta property='og:title' content={META_DATA.title} />
-        <meta property='og:description' content={META_DATA.description} />
-      </Helmet>
-
+      <MetaData title={META_DATA.title} />
       <div>
         <Header isLanding />
         <main className='bg-landing-black'>

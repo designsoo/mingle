@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 
 import { EmptyBoardCard, IconButton } from 'mingle-ui';
-import { Helmet } from 'react-helmet-async';
 
 import { SVGS } from '@/constants';
 
+import MetaData from '@/components/MetaData';
 import BoardCard from '@/components/pages/boardList/BoardCard';
 import BoardCardListSkeleton from '@/components/pages/boardList/BoardCardListSkeleton';
 import EmptyBoardCards from '@/components/pages/boardList/EmptyBoardCards';
@@ -59,9 +59,7 @@ const BoardList = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Mingle | Board List</title>
-      </Helmet>
+      <MetaData title='Mingle | Board List' />
       <div>
         <Header />
         <main className='m-auto flex max-w-[1120px] flex-col gap-4 py-[100px] pl-5 lg:pl-0'>
@@ -108,8 +106,10 @@ const BoardList = () => {
 
           <section className='latest-board pr-5 lg:pr-0'>
             <div className='mt-10 flex flex-col gap-3 md:!flex-row md:items-center md:justify-between'>
-              <h2 className='mb-2 text-bold-24'>Latest Board</h2>
-              <div className='flex items-center gap-4'>
+              <h2 className='text-bold-24'>Latest Board</h2>
+              <div
+                className={`flex items-center gap-4 ${isFocused && 'border-yellow-300'} base-transition border-b border-transparent pb-2 md:border-none md:pb-0`}
+              >
                 <label htmlFor='search'>
                   <img
                     src={isFocused ? search.active.url : search.default.url}
@@ -122,7 +122,7 @@ const BoardList = () => {
                   id='search'
                   type='text'
                   placeholder='Find Your Mingle Board'
-                  className='w-[210px] bg-transparent text-base-18 text-neutral-100 outline-none placeholder:text-neutral-700'
+                  className='h-11 w-[210px] bg-transparent text-base-18 text-neutral-100 outline-none placeholder:text-neutral-700'
                   onChange={handleChange}
                   value={keyword}
                   onFocus={handleFocus}

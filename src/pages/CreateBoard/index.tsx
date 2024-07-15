@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
 import { InputField, PrimaryButton, TabList } from 'mingle-ui';
-import { Helmet } from 'react-helmet-async';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 
 import { PAPER_BACKGROUND_COLORS, PAPER_BACKGROUND_IMAGES, TAB_LIST } from '@/constants';
 import { DELIMITER } from '@/utils';
 
+import MetaData from '@/components/MetaData';
 import BackgroundColorOptions from '@/components/pages/createBoard/BackgroundColorOptions';
 import BackgroundImageOptions from '@/components/pages/createBoard/BackgroundImageOptions';
 import PreviewBoard from '@/components/pages/createBoard/PreviewBoard';
@@ -78,10 +78,7 @@ const CreateBoard = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Mingle | Create Board</title>
-      </Helmet>
-
+      <MetaData title='Mingle | Create Board' />
       <div>
         <Header />
         <main className='m-auto flex max-w-full flex-col gap-4 px-5 py-[100px] md:max-w-[720px] md:gap-8'>
