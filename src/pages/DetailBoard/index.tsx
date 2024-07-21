@@ -160,14 +160,13 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
                 isMessagesLoading={isBoardDataLoading}
                 filteredMessages={filteredMessages}
               />
+              <div ref={setTrigger} className='size-10 bg-transparent'></div>
 
               {isFetchingNextPage && (
                 <div className='flexbox-row-center my-4'>
                   <span>Loading...</span>
                 </div>
               )}
-
-              <div ref={setTrigger} className='size-10 bg-transparent'></div>
             </section>
 
             <div className='fixed bottom-[68px] left-0 right-0 z-20 m-auto max-w-[800px] px-5 md:bottom-6'>
