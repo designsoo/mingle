@@ -18,7 +18,7 @@ import ConfirmPasswordModal from '@/components/pages/detailBoard/ConfirmPassword
 import EmojiList from '@/components/pages/detailBoard/EmojiList';
 import Header from '@/components/ui/Header';
 import NavigationBar from '@/components/ui/NavigationBar';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import useInfiniteScrollObserver from '@/hooks/useInfiniteScrollObserver';
 import useMultiState from '@/hooks/useMultiState';
 import { useGetBoardData } from '@/pages/DetailBoard/data-access/useGetBoardData';
 import { useGetMessages } from '@/pages/DetailBoard/data-access/useGetMessages';
@@ -40,7 +40,7 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
 
   const { boardData, isBoardDataLoading } = useGetBoardData(boardId);
   const { messageData, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetMessages(boardId);
-  const { setTrigger } = useIntersectionObserver({ hasNextPage, fetchNextPage });
+  const trigger = useInfiniteScrollObserver({ hasNextPage, fetchNextPage });
   const { isDeleteLoading, deleteBoardMutation } = useDeleteBoard();
   const { name, password } = boardData?.name ? splitByDelimiter(boardData.name) : { name: '', password: '' };
   const { multiState, toggleClick } = useMultiState(['confirmPasswordModal', 'confirmDeleteModal']);
@@ -160,7 +160,7 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
                 isMessagesLoading={isBoardDataLoading}
                 filteredMessages={filteredMessages}
               />
-              <div ref={setTrigger} className='size-10 bg-transparent'></div>
+              <div ref={trigger} className='size-10 bg-transparent'></div>
 
               {isFetchingNextPage && (
                 <div className='flexbox-row-center my-4'>
