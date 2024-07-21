@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import { META_DATA, PNGS, bannerContent } from '@/constants';
@@ -9,22 +11,42 @@ import SubBanner from '@/components/pages/landing/SubBanner';
 import Footer from '@/components/ui/Footer';
 import Header from '@/components/ui/Header';
 import { useDeviceType } from '@/hooks/useDeviceType';
+import { getDeviceCTAImageUrl } from '@/utils/getDeviceCTAImageUrl';
 
-const { deviceMockup, banner_emoji, banner_celebrate, cta } = PNGS;
+const { banner_device_mockup, banner_emoji, banner_celebrate } = PNGS;
 const { dashboard, emoji, celebrate, share, write } = bannerContent;
 
 const Landing = () => {
   const deviceType = useDeviceType();
+  const imgRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
 
-  const backgroundImageUrl = () => {
-    if (deviceType === 'Mobile') {
-      return cta.mobile.url;
-    } else if (deviceType === 'Tablet') {
-      return cta.tablet.url;
-    } else {
-      return cta.pc.url;
-    }
-  };
+  useEffect(() => {
+    const observerCallback: IntersectionObserverCallback = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sourceElement = entry.target.querySelector('source') as HTMLSourceElement | null;
+          const imgElement = entry.target.querySelector('img') as HTMLImageElement | null;
+
+          if (sourceElement && sourceElement.dataset.srcset) sourceElement.src = sourceElement.dataset.srcset;
+          if (imgElement && imgElement.dataset.src) imgElement.src = imgElement.dataset.src;
+
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {});
+
+    imgRefs.forEach((ref) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+
+    return () => {
+      imgRefs.forEach((ref) => {
+        if (ref.current) observer.unobserve(ref.current);
+      });
+    };
+  }, []);
 
   return (
     <>
@@ -34,7 +56,7 @@ const Landing = () => {
         <main className='bg-landing-black'>
           <section
             style={{
-              background: `url(${backgroundImageUrl()}) no-repeat center / cover`,
+              background: `url(${getDeviceCTAImageUrl(deviceType)}) no-repeat center / cover`,
             }}
             className='min-h-[740px] overflow-hidden md:min-h-screen'
           >
@@ -58,9 +80,12 @@ const Landing = () => {
               Make Every Moment Memorable
             </h2>
 
-            <div className='banner-base flexbox-column-center md:flexbox-row-reverse col-span-4 gap-10 md:col-span-12 lg:gap-16 lg:rounded-3xl lg:px-12'>
+            <div
+              ref={imgRefs[0]}
+              className='banner-base flexbox-column-center md:flexbox-row-reverse col-span-4 gap-10 md:col-span-12 lg:gap-16 lg:rounded-3xl lg:px-12'
+            >
               <div className='flexbox-column-center relative w-[80%]'>
-                <BannerImage imageUrl={deviceMockup.url} imageAlt={deviceMockup.alt} width={690} height={432} />
+                <BannerImage imageData={banner_device_mockup} width={690} height={432} />
               </div>
               <div className='*:text-center md:max-w-[360px] md:grow md:*:text-start lg:max-w-[430px]'>
                 <h3 className='mb-8 text-bold-20 text-neutral-100 lg:text-bold-28'>{dashboard.title}</h3>
@@ -68,19 +93,22 @@ const Landing = () => {
               </div>
             </div>
 
-            <div className='flexbox-column-reverse col-span-4 gap-5 md:col-span-6'>
+            <div ref={imgRefs[1]} className='flexbox-column-reverse col-span-4 gap-5 md:col-span-6'>
               <div className='banner-vertical'>
-                <BannerImage imageUrl={banner_emoji.url} imageAlt={banner_emoji.alt} width={420} height={450} />
+                <BannerImage imageData={banner_emoji} width={420} height={450} />
                 <BannerContent title={emoji.title} description={emoji.description} />
               </div>
               <SubBanner bannerColor='#FDBA74' title={share.title} description={share.description} />
             </div>
 
-            <div className='flexbox-column-between-center md:flexbox-column-reverse col-span-4 gap-5 md:col-span-6'>
+            <div
+              ref={imgRefs[2]}
+              className='flexbox-column-between-center md:flexbox-column-reverse col-span-4 gap-5 md:col-span-6'
+            >
               <SubBanner bannerColor='#F5E724' title={write.title} description={write.description} />
               <div className='banner-vertical gap-10'>
                 <BannerContent title={celebrate.title} description={celebrate.description} />
-                <BannerImage imageUrl={banner_celebrate.url} imageAlt={banner_celebrate.alt} width={420} height={380} />
+                <BannerImage imageData={banner_celebrate} width={420} height={380} />
               </div>
             </div>
           </section>
