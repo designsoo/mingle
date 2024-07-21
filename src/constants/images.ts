@@ -67,29 +67,47 @@ export const PNGS = {
     url: `${CLOUDFLARE_URL}/e25990d4-511c-4c38-91c6-eeeab7f55700/${PREVIEW_PAPER_SIZE}`,
     alt: 'card background image',
   },
-  deviceMockup: {
-    url: `${CLOUDFLARE_URL}/4dd164fa-a16c-47be-0d69-68871a286b00/width=1380,height=864`,
-    alt: 'mingle ipad, iphone image',
+  banner_device_mockup: {
+    webp: {
+      url: `${CLOUDFLARE_URL}/706ffde8-dd86-42c2-cb35-d0f15022a600/width=1380,height=864`,
+      alt: 'mingle ipad, iphone image',
+    },
+    png: {
+      url: `${CLOUDFLARE_URL}/1a136e6e-3596-470f-a99e-d3b2ec79f200/width=1380,height=864`,
+      alt: 'mingle ipad, iphone image',
+    },
   },
   banner_emoji: {
-    url: `${CLOUDFLARE_URL}/2fc90bf1-521f-4b3f-2c17-e5ddd6ae3000/width=840,height=900`,
-    alt: 'emoji image',
+    webp: {
+      url: `${CLOUDFLARE_URL}/796dd5c4-7bdc-4221-d0f6-ce14b94e0300/width=840,height=900`,
+      alt: 'emoji image',
+    },
+    png: {
+      url: `${CLOUDFLARE_URL}/b7f888ff-ce29-4095-e1c8-f9477ac02300/width=840,height=900`,
+      alt: 'emoji image',
+    },
   },
   banner_celebrate: {
-    url: `${CLOUDFLARE_URL}/5f0d57cb-c603-4007-3069-bb957def0900/width=820,height=760`,
-    alt: 'celebrate image',
+    webp: {
+      url: `${CLOUDFLARE_URL}/6ccc8fbd-351d-4aeb-5085-f639aacfd400/width=820,height=760`,
+      alt: 'celebrate image',
+    },
+    png: {
+      url: `${CLOUDFLARE_URL}/7532aca3-3b17-4955-3df0-6decb8436700/width=820,height=760`,
+      alt: 'celebrate image',
+    },
   },
   cta: {
     pc: {
-      url: `${CLOUDFLARE_URL}/f2bf7403-df6a-4cde-c272-a0fad930fd00/width=3840,height=2160`,
+      url: `${CLOUDFLARE_URL}/5a1468cd-8a6a-424f-9bf5-ef7896767500/width=3840,height=2160`,
       alt: 'mingle banner image',
     },
     tablet: {
-      url: `${CLOUDFLARE_URL}/dd17e7d1-1a6c-4e96-dc2e-1fe36f8c0000/width=1640,height=1180`,
+      url: `${CLOUDFLARE_URL}/fc5fddd3-1e01-481c-1872-87bd8360b200/width=1640,height=1180`,
       alt: 'mingle banner image',
     },
     mobile: {
-      url: `${CLOUDFLARE_URL}/4cf2827b-2085-4c3b-5d03-a921e8f0b500/width=1534,height=1480`,
+      url: `${CLOUDFLARE_URL}/3f4baa0a-9f59-4ef1-d585-36f93e707300/width=1534,height=1480`,
       alt: 'mingle banner image',
     },
   },
