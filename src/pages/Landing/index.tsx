@@ -1,5 +1,3 @@
-import { useEffect, useRef } from 'react';
-
 import { Link } from 'react-router-dom';
 
 import { META_DATA, PNGS, bannerContent } from '@/constants';
@@ -11,6 +9,7 @@ import SubBanner from '@/components/pages/landing/SubBanner';
 import Footer from '@/components/ui/Footer';
 import Header from '@/components/ui/Header';
 import { useDeviceType } from '@/hooks/useDeviceType';
+import useLazyLoadImages from '@/hooks/useLazyLoadImages';
 import { getDeviceCTAImageUrl } from '@/utils/getDeviceCTAImageUrl';
 
 const { banner_device_mockup, banner_emoji, banner_celebrate } = PNGS;
@@ -18,35 +17,7 @@ const { dashboard, emoji, celebrate, share, write } = bannerContent;
 
 const Landing = () => {
   const deviceType = useDeviceType();
-  const imgRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
-
-  useEffect(() => {
-    const observerCallback: IntersectionObserverCallback = (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const sourceElement = entry.target.querySelector('source') as HTMLSourceElement | null;
-          const imgElement = entry.target.querySelector('img') as HTMLImageElement | null;
-
-          if (sourceElement && sourceElement.dataset.srcset) sourceElement.src = sourceElement.dataset.srcset;
-          if (imgElement && imgElement.dataset.src) imgElement.src = imgElement.dataset.src;
-
-          observer.unobserve(entry.target);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, {});
-
-    imgRefs.forEach((ref) => {
-      if (ref.current) observer.observe(ref.current);
-    });
-
-    return () => {
-      imgRefs.forEach((ref) => {
-        if (ref.current) observer.unobserve(ref.current);
-      });
-    };
-  }, []);
+  const imgRefs = useLazyLoadImages();
 
   return (
     <>
