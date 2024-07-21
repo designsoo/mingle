@@ -16,9 +16,10 @@ export const useDeviceType = (): DeviceType => {
       return DeviceType.md;
     }
 
-    if (windowWidth <= BREAK_POINT.pc) {
+    if (windowWidth <= BREAK_POINT.laptop) {
       return DeviceType.lg;
     }
+
     return DeviceType.xl;
   };
 
