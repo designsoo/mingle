@@ -1,14 +1,20 @@
+import { BannerImageType } from '@/types/image';
+
 interface BannerImageProps {
-  imageUrl: string;
-  imageAlt: string;
+  imageData: BannerImageType;
   width: number;
   height: number;
 }
 
-const BannerImage = ({ imageUrl, imageAlt, width, height }: BannerImageProps) => {
+const BannerImage = ({ imageData, width, height }: BannerImageProps) => {
+  const { webp, png } = imageData;
+
   return (
     <div className='min-w-[240px] lg:w-[400px]'>
-      <img src={imageUrl} alt={imageAlt} width={width} height={height} />
+      <picture>
+        <source data-srcset={webp.url} type='image/webp' />
+        <img data-src={png.url} alt={png.alt} width={width} height={height} />
+      </picture>
     </div>
   );
 };
