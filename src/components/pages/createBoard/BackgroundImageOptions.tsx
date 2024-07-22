@@ -60,7 +60,7 @@ const BackgroundImageOptions = ({
     }
   };
 
-  const handleButtonClick = (id: string, value: string, type: string) => {
+  const handleDefaultImageClick = (id: string, value: string, type: string) => {
     setPreviewImage(value);
     // 기본 이미지 선택 시 사용자 등록 이미지 file 정보를 초기화
     setFile(null);
@@ -81,7 +81,7 @@ const BackgroundImageOptions = ({
           <button
             type='button'
             aria-label='background-image-options'
-            onClick={() => handleButtonClick(image.id, image.value, image.type)}
+            onClick={() => handleDefaultImageClick(image.id, image.value, image.type)}
             style={{
               backgroundImage: `url(${image.value})`,
               backgroundRepeat: 'no-repeat',
