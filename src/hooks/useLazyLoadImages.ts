@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-const useLazyLoadImages = () => {
-  const imgRefs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
+const useLazyLoadImages = (count: number) => {
+  const imgRefs = useRef<(HTMLDivElement | null)[]>(Array(count).fill(null));
 
   useEffect(() => {
     const observerCallback: IntersectionObserverCallback = (entries, observer) => {
@@ -19,14 +19,15 @@ const useLazyLoadImages = () => {
     };
 
     const observer = new IntersectionObserver(observerCallback, {});
+    const imageTrigger = imgRefs.current;
 
-    imgRefs.forEach((ref) => {
-      if (ref.current) observer.observe(ref.current);
+    imageTrigger.forEach((ref) => {
+      if (ref) observer.observe(ref);
     });
 
     return () => {
-      imgRefs.forEach((ref) => {
-        if (ref.current) observer.unobserve(ref.current);
+      imageTrigger.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
       });
     };
   }, []);
