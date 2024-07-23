@@ -20,11 +20,12 @@ import Header from '@/components/ui/Header';
 import NavigationBar from '@/components/ui/NavigationBar';
 import useInfiniteScrollObserver from '@/hooks/useInfiniteScrollObserver';
 import useMultiState from '@/hooks/useMultiState';
-import { useGetBoardData } from '@/pages/DetailBoard/data-access/useGetBoardData';
 import { useGetMessages } from '@/pages/DetailBoard/data-access/useGetMessages';
 import { useDeleteBoard } from '@/pages/EditBoard/data-access/useDeleteBoard';
 import { passwordSchema } from '@/pages/EditBoard/schema/passwordSchema';
 import { MessagesResults, CardResults } from '@/types/recipients';
+
+import { useFetchBoardData } from './data-access/useFetchBoardData';
 
 const { kakao } = SVGS;
 
@@ -38,7 +39,7 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
   const navigate = useNavigate();
   const dropdownPosition = isEdit ? 'absolute-y-center right-0 z-10' : 'absolute right-[44px] z-10 max-w-[112px]';
 
-  const { boardData, isBoardDataLoading } = useGetBoardData(boardId);
+  const { boardData, isBoardDataLoading } = useFetchBoardData(boardId);
   const { messageData, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetMessages(boardId);
   const trigger = useInfiniteScrollObserver({ hasNextPage, fetchNextPage });
   const { isDeleteLoading, deleteBoardMutation } = useDeleteBoard();
@@ -115,7 +116,7 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
               <BoardSkeleton />
             ) : (
               <div className='m-auto flex max-w-[1120px] flex-col gap-2 px-5 pr-0 md:pr-5 lg:px-10 xl:px-0'>
-                <BoardName isEdit={isEdit} name={name} boardId={boardId} />
+                <BoardName isEdit={isEdit} name={boardData?.name} boardId={boardId} />
                 <div
                   className={`${isEdit && '!flexbox-column-center h-9'} flexbox-column-start md:!flexbox-row-between gap-3 md:h-9`}
                 >
