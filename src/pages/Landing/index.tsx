@@ -17,7 +17,7 @@ const { dashboard, emoji, celebrate, share, write } = bannerContent;
 
 const Landing = () => {
   const deviceType = useDeviceType();
-  const imgRefs = useLazyLoadImages();
+  const imgRefs = useLazyLoadImages(3);
 
   return (
     <>
@@ -52,7 +52,7 @@ const Landing = () => {
             </h2>
 
             <div
-              ref={imgRefs[0]}
+              ref={(el) => (imgRefs.current[0] = el)}
               className='banner-base flexbox-column-center md:flexbox-row-reverse col-span-4 gap-10 md:col-span-12 lg:gap-16 lg:rounded-3xl lg:px-12'
             >
               <div className='flexbox-column-center relative w-[80%]'>
@@ -64,7 +64,10 @@ const Landing = () => {
               </div>
             </div>
 
-            <div ref={imgRefs[1]} className='flexbox-column-reverse col-span-4 gap-5 md:col-span-6'>
+            <div
+              ref={(el) => (imgRefs.current[1] = el)}
+              className='flexbox-column-reverse col-span-4 gap-5 md:col-span-6'
+            >
               <div className='banner-vertical'>
                 <BannerImage imageData={banner_emoji} width={420} height={450} />
                 <BannerContent title={emoji.title} description={emoji.description} />
@@ -73,7 +76,7 @@ const Landing = () => {
             </div>
 
             <div
-              ref={imgRefs[2]}
+              ref={(el) => (imgRefs.current[2] = el)}
               className='flexbox-column-between-center md:flexbox-column-reverse col-span-4 gap-5 md:col-span-6'
             >
               <SubBanner bannerColor='#F5E724' title={write.title} description={write.description} />
