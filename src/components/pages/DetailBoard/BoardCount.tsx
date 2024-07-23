@@ -1,6 +1,6 @@
 type BoardCountProps = {
-  paperCount: number;
-  reactionCount: number;
+  paperCount: number | undefined;
+  reactionCount: number | undefined;
 };
 
 const BoardCount = ({ paperCount, reactionCount }: BoardCountProps) => {
