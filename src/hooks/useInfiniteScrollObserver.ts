@@ -23,16 +23,18 @@ const useInfiniteScrollObserver = ({ hasNextPage, fetchNextPage }: IuseIntersect
       threshold: 0.5,
     });
 
-    if (trigger.current) {
-      observer.observe(trigger.current);
+    const currentTrigger = trigger.current;
+
+    if (currentTrigger) {
+      observer.observe(currentTrigger);
     }
 
     return () => {
-      if (trigger.current) {
-        observer.unobserve(trigger.current);
+      if (currentTrigger) {
+        observer.unobserve(currentTrigger);
       }
     };
-  }, [trigger, hasNextPage, fetchNextPage]);
+  }, [hasNextPage, fetchNextPage]);
 
   return trigger;
 };
