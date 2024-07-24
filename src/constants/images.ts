@@ -111,6 +111,12 @@ export const PNGS = {
       alt: 'mingle banner image',
     },
   },
+  list_card: {
+    default: {
+      url: `${CLOUDFLARE_URL}/29f16723-39eb-43e4-5fad-837efaebc800/${PREVIEW_PAPER_SIZE}`,
+      alt: 'card background',
+    },
+  },
 };
 
 export const SVGS = {
