@@ -1,10 +1,15 @@
+import { useEffect, useState } from 'react';
+
 import { Link } from 'react-router-dom';
 
-import { getBackgroundImageUrl, splitByDelimiter } from '@/utils';
+import { PNGS } from '@/constants';
+import { getBackgroundImageUrl, preloadImages, splitByDelimiter } from '@/utils';
 
 import MemberList from '@/components/pages/boardList/MemberList';
 import TopReactionList from '@/components/pages/boardList/TopReactionList';
 import { BoardResults } from '@/types/recipients';
+
+const { list_card } = PNGS;
 
 interface BoardCardProps {
   board: BoardResults;
@@ -14,8 +19,15 @@ interface BoardCardProps {
 const BoardCard = ({ board, cardWidth = '100%' }: BoardCardProps) => {
   const { id, backgroundColor, backgroundImageURL, name: inputName, messageCount, topReactions } = board;
   const { name } = splitByDelimiter(inputName);
+  const defaultBackgroundUrl = list_card.default.url;
+  const updatedBackgroundUrl = getBackgroundImageUrl(backgroundColor, backgroundImageURL);
 
-  const backgroundUrl = getBackgroundImageUrl(backgroundColor, backgroundImageURL);
+  const [backgroundUrl, setBackgroundUrl] = useState(defaultBackgroundUrl);
+
+  useEffect(() => {
+    preloadImages(defaultBackgroundUrl, () => setBackgroundUrl(defaultBackgroundUrl));
+    preloadImages(updatedBackgroundUrl, () => setBackgroundUrl(updatedBackgroundUrl));
+  }, [updatedBackgroundUrl]);
 
   return (
     <article
