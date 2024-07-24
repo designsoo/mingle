@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import { META_DATA, PNGS, bannerContent } from '@/constants';
@@ -18,6 +20,15 @@ const { dashboard, emoji, celebrate, share, write } = bannerContent;
 const Landing = () => {
   const deviceType = useDeviceType();
   const imgRefs = useLazyLoadImages(3);
+
+  const preloadImages = () => {
+    const img = new Image();
+    img.src = getDeviceCTAImageUrl(deviceType);
+  };
+
+  useEffect(() => {
+    preloadImages();
+  }, [deviceType]);
 
   return (
     <>
