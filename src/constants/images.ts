@@ -20,27 +20,31 @@ import setting_active from '@/assets/ic-setting-active.svg';
 import setting from '@/assets/ic-setting.svg';
 import logo from '@/assets/mg-logo-color.svg';
 import footer_logo from '@/assets/mg-logo-gray.svg';
+import color_option_1 from '@/assets/png/mg-default-background-color-1.webp';
+import color_option_2 from '@/assets/png/mg-default-background-color-2.webp';
+import color_option_3 from '@/assets/png/mg-default-background-color-3.webp';
+import color_option_4 from '@/assets/png/mg-default-background-color-4.webp';
 
 export const PAPER_BACKGROUND_COLORS = [
   {
     id: 'blue',
     type: 'backgroundColor',
-    value: `${CLOUDFLARE_URL}/d0dbe289-f3f4-4554-bca8-65d4653ca000/${PREVIEW_PAPER_SIZE}`,
+    value: color_option_1,
   },
   {
     id: 'purple',
     type: 'backgroundColor',
-    value: `${CLOUDFLARE_URL}/d62bafd0-de11-4e96-e1fb-2ef1e6a97d00/${PREVIEW_PAPER_SIZE}`,
+    value: color_option_2,
   },
   {
     id: 'green',
     type: 'backgroundColor',
-    value: `${CLOUDFLARE_URL}/e482b8b7-dfb0-47ff-ce1e-5c03ff0a8200/${PREVIEW_PAPER_SIZE}`,
+    value: color_option_3,
   },
   {
     id: 'beige',
     type: 'backgroundColor',
-    value: `${CLOUDFLARE_URL}/9d4a773e-43e8-4718-43c8-30f76287d000/${PREVIEW_PAPER_SIZE}`,
+    value: color_option_4,
   },
 ];
 
