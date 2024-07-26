@@ -116,7 +116,7 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
               <BoardSkeleton />
             ) : (
               <div className='m-auto flex max-w-[1120px] flex-col gap-2 px-5 pr-0 md:pr-5 lg:px-10 xl:px-0'>
-                <BoardName isEdit={isEdit} name={boardData?.name} boardId={boardId} />
+                <BoardName isEdit={isEdit} name={name} boardId={boardId} />
                 <div
                   className={`${isEdit && '!flexbox-column-center h-9'} flexbox-column-start md:!flexbox-row-between gap-3 md:h-9`}
                 >
