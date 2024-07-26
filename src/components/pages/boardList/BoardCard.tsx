@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { PNGS } from '@/constants';
-import { getBackgroundImageUrl, preloadImages, splitByDelimiter } from '@/utils';
+import { getBackgroundImageUrl, splitByDelimiter } from '@/utils';
 
 import MemberList from '@/components/pages/boardList/MemberList';
 import TopReactionList from '@/components/pages/boardList/TopReactionList';
 import { BoardResults } from '@/types/recipients';
-
 const { list_card } = PNGS;
 
 interface BoardCardProps {
@@ -19,21 +18,22 @@ interface BoardCardProps {
 const BoardCard = ({ board, cardWidth = '100%' }: BoardCardProps) => {
   const { id, backgroundColor, backgroundImageURL, name: inputName, messageCount, topReactions } = board;
   const { name } = splitByDelimiter(inputName);
-  const defaultBackgroundUrl = list_card.default.url;
+  const placeholderImage = list_card.default.url;
   const updatedBackgroundUrl = getBackgroundImageUrl(backgroundColor, backgroundImageURL);
 
-  const [backgroundUrl, setBackgroundUrl] = useState(defaultBackgroundUrl);
+  const [backgroundImage, setBackgroundImage] = useState(placeholderImage);
 
   useEffect(() => {
-    preloadImages(defaultBackgroundUrl, () => setBackgroundUrl(defaultBackgroundUrl));
-    preloadImages(updatedBackgroundUrl, () => setBackgroundUrl(updatedBackgroundUrl));
-  }, [updatedBackgroundUrl]);
+    const img = new Image();
+    img.src = updatedBackgroundUrl;
+    img.onload = () => setBackgroundImage(updatedBackgroundUrl);
+  }, []);
 
   return (
     <article
       className='base-transition h-[320px] overflow-hidden rounded-2xl p-4 hover:-translate-y-3'
       style={{
-        background: `url(${backgroundUrl}) no-repeat center / cover`,
+        background: `url(${backgroundImage}) no-repeat center / cover`,
         width: `${cardWidth}`,
       }}
     >
