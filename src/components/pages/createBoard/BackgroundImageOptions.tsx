@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { PAPER_BACKGROUND_IMAGES, SVGS } from '@/constants';
+import { preloadImages } from '@/utils';
 
 import { getUploadUrl } from '@/pages/CreateBoard/data-access/cloudflareImageService';
 
@@ -56,14 +57,7 @@ const BackgroundImageOptions = ({ selectedImage, onClick, setFile, setUploadId }
   };
 
   useEffect(() => {
-    const preloadImage = () => {
-      PAPER_BACKGROUND_IMAGES.forEach((option) => {
-        const img = new Image();
-        img.src = option.value;
-      });
-    };
-
-    preloadImage();
+    preloadImages(PAPER_BACKGROUND_IMAGES);
   }, []);
 
   return (
