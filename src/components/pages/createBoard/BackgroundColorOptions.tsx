@@ -1,25 +1,33 @@
-type ColorList = {
-  id: string;
-  type: string;
-  value: string;
-};
+import { useEffect } from 'react';
+
+import { PAPER_BACKGROUND_COLORS } from '@/constants';
 
 interface BackgroundColorOptionsProps {
-  colorList: ColorList[];
   selectedImage: string;
   onClick: (id: string, value: string, type: string) => void;
   setFile: (file: File | null) => void;
 }
 
-const BackgroundColorOptions = ({ colorList, selectedImage, onClick, setFile }: BackgroundColorOptionsProps) => {
+const BackgroundColorOptions = ({ selectedImage, onClick, setFile }: BackgroundColorOptionsProps) => {
   const handleColorOptionClick = (id: string, value: string, type: string) => {
     setFile(null);
     onClick(id, value, type);
   };
 
+  useEffect(() => {
+    const preloadImage = () => {
+      PAPER_BACKGROUND_COLORS.forEach((option) => {
+        const img = new Image();
+        img.src = option.value;
+      });
+    };
+
+    preloadImage();
+  }, []);
+
   return (
     <ul className='mt-6 grid grid-cols-2 gap-4 md:grid-cols-4'>
-      {colorList.map((color) => (
+      {PAPER_BACKGROUND_COLORS.map((color) => (
         <li key={`color-option-${color.id}`} className='w-full'>
           <button
             type='button'

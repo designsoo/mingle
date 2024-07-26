@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import { SVGS } from '@/constants';
+import { PAPER_BACKGROUND_IMAGES, SVGS } from '@/constants';
 
 import { getUploadUrl } from '@/pages/CreateBoard/data-access/cloudflareImageService';
 
@@ -8,27 +8,14 @@ const {
   add: { url, alt },
 } = SVGS;
 
-type ImageList = {
-  id: string;
-  type: string;
-  value: string;
-};
-
 interface BackgroundImageOptionsProps {
-  imageList: ImageList[];
   selectedImage: string;
   onClick: (id: string, value: string, type: string) => void;
   setFile: (file: File | null) => void;
   setUploadId: (url: string) => void;
 }
 
-const BackgroundImageOptions = ({
-  imageList,
-  selectedImage,
-  onClick,
-  setFile,
-  setUploadId,
-}: BackgroundImageOptionsProps) => {
+const BackgroundImageOptions = ({ selectedImage, onClick, setFile, setUploadId }: BackgroundImageOptionsProps) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -68,6 +55,17 @@ const BackgroundImageOptions = ({
     onClick(id, value, type);
   };
 
+  useEffect(() => {
+    const preloadImage = () => {
+      PAPER_BACKGROUND_IMAGES.forEach((option) => {
+        const img = new Image();
+        img.src = option.value;
+      });
+    };
+
+    preloadImage();
+  }, []);
+
   return (
     <ul className='mt-6 grid grid-cols-2 gap-4 md:grid-cols-4'>
       <li className='base-transition h-[160px] w-full rounded-lg border border-neutral-700 hover:border-yellow-300'>
@@ -76,7 +74,7 @@ const BackgroundImageOptions = ({
         </label>
         <input ref={inputRef} id='photo' type='file' className='hidden' onChange={onImageChange} />
       </li>
-      {imageList.map((image) => (
+      {PAPER_BACKGROUND_IMAGES.map((image) => (
         <li key={`image-option-${image.id}`} className='w-full'>
           <button
             type='button'
