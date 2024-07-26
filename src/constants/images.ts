@@ -25,22 +25,22 @@ export const PAPER_BACKGROUND_COLORS = [
   {
     id: 'blue',
     type: 'backgroundColor',
-    value: `${CLOUDFLARE_URL}/8a482541-9f00-429f-cff7-2b90fc4d0400/${PREVIEW_PAPER_SIZE}`,
+    value: `${CLOUDFLARE_URL}/d0dbe289-f3f4-4554-bca8-65d4653ca000/${PREVIEW_PAPER_SIZE}`,
   },
   {
     id: 'purple',
     type: 'backgroundColor',
-    value: `${CLOUDFLARE_URL}/c69924f8-98e5-45bc-ccae-065cce04a500/${PREVIEW_PAPER_SIZE}`,
+    value: `${CLOUDFLARE_URL}/d62bafd0-de11-4e96-e1fb-2ef1e6a97d00/${PREVIEW_PAPER_SIZE}`,
   },
   {
     id: 'green',
     type: 'backgroundColor',
-    value: `${CLOUDFLARE_URL}/9faebeef-e89a-40ec-5a23-703d32e95000/${PREVIEW_PAPER_SIZE}`,
+    value: `${CLOUDFLARE_URL}/e482b8b7-dfb0-47ff-ce1e-5c03ff0a8200/${PREVIEW_PAPER_SIZE}`,
   },
   {
     id: 'beige',
     type: 'backgroundColor',
-    value: `${CLOUDFLARE_URL}/dc6b7cff-ba50-4674-dff4-e092f38a6700/${PREVIEW_PAPER_SIZE}`,
+    value: `${CLOUDFLARE_URL}/9d4a773e-43e8-4718-43c8-30f76287d000/${PREVIEW_PAPER_SIZE}`,
   },
 ];
 
@@ -48,23 +48,23 @@ export const PAPER_BACKGROUND_IMAGES = [
   {
     id: 'pika',
     type: 'backgroundImageURL',
-    value: `${CLOUDFLARE_URL}/650bcaca-3f77-4ebb-5907-7e9e2436af00/${PREVIEW_PAPER_SIZE}`,
+    value: `${CLOUDFLARE_URL}/849a2770-1c9d-42b0-4bc5-435ba1e94d00/${PREVIEW_PAPER_SIZE}`,
   },
   {
     id: 'mario',
     type: 'backgroundImageURL',
-    value: `${CLOUDFLARE_URL}/f8ae48ac-8723-47a6-bd1e-63e4aa0ecb00/${PREVIEW_PAPER_SIZE}`,
+    value: `${CLOUDFLARE_URL}/3d9d4306-55d6-4825-a227-98f2b0ba1a00/${PREVIEW_PAPER_SIZE}`,
   },
   {
     id: 'kirby',
     type: 'backgroundImageURL',
-    value: `${CLOUDFLARE_URL}/3b972292-c529-4cf5-ab05-7e228ec32a00/${PREVIEW_PAPER_SIZE}`,
+    value: `${CLOUDFLARE_URL}/d4f5bfd7-e3a5-4054-f786-7359cd743700/${PREVIEW_PAPER_SIZE}`,
   },
 ];
 
 export const PNGS = {
   card: {
-    url: `${CLOUDFLARE_URL}/e25990d4-511c-4c38-91c6-eeeab7f55700/${PREVIEW_PAPER_SIZE}`,
+    url: `${CLOUDFLARE_URL}/3b7d462a-c16b-4c44-95ca-b4e7ba803900/${PREVIEW_PAPER_SIZE}`,
     alt: 'card background image',
   },
   banner_device_mockup: {
