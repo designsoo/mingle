@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { InputField, PrimaryButton, TabList } from 'mingle-ui';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 
-import { PAPER_BACKGROUND_COLORS, PAPER_BACKGROUND_IMAGES, TAB_LIST } from '@/constants';
+import { PAPER_BACKGROUND_COLORS, TAB_LIST } from '@/constants';
 import { DELIMITER } from '@/utils';
 
 import MetaData from '@/components/MetaData';
@@ -123,19 +123,13 @@ const CreateBoard = () => {
                 </div>
                 {selectedTab ? (
                   <BackgroundImageOptions
-                    imageList={PAPER_BACKGROUND_IMAGES}
                     selectedImage={selectedOption}
                     onClick={handleImageClick}
                     setFile={setFile}
                     setUploadId={setUploadId}
                   />
                 ) : (
-                  <BackgroundColorOptions
-                    colorList={PAPER_BACKGROUND_COLORS}
-                    selectedImage={selectedOption}
-                    onClick={handleImageClick}
-                    setFile={setFile}
-                  />
+                  <BackgroundColorOptions selectedImage={selectedOption} onClick={handleImageClick} setFile={setFile} />
                 )}
               </fieldset>
               <PrimaryButton size='lg' type='submit' disabled={isCreateLoading}>
