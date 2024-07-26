@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { PAPER_BACKGROUND_COLORS } from '@/constants';
+import { preloadImages } from '@/utils';
 
 interface BackgroundColorOptionsProps {
   selectedImage: string;
@@ -15,14 +16,7 @@ const BackgroundColorOptions = ({ selectedImage, onClick, setFile }: BackgroundC
   };
 
   useEffect(() => {
-    const preloadImage = () => {
-      PAPER_BACKGROUND_COLORS.forEach((option) => {
-        const img = new Image();
-        img.src = option.value;
-      });
-    };
-
-    preloadImage();
+    preloadImages(PAPER_BACKGROUND_COLORS);
   }, []);
 
   return (
