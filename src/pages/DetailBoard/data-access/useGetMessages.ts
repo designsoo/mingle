@@ -16,8 +16,8 @@ export const useGetMessages = (boardId: number) => {
     queryFn: ({ pageParam }) => getMessages({ boardId, offset: pageParam }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, _, lastPageParam) => {
-      const nexPageParam = lastPageParam + MESSAGES_PER_PAGE;
-      return lastPage.length < MESSAGES_PER_PAGE ? undefined : nexPageParam;
+      const nextPageParam = lastPageParam + MESSAGES_PER_PAGE;
+      return lastPage.length < MESSAGES_PER_PAGE ? undefined : nextPageParam;
     },
     select: (data) => ({
       pages: data.pages.flatMap((page) => page),
