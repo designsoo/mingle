@@ -23,7 +23,7 @@ import useMultiState from '@/hooks/useMultiState';
 import { useGetMessages } from '@/pages/DetailBoard/data-access/useGetMessages';
 import { useDeleteBoard } from '@/pages/EditBoard/data-access/useDeleteBoard';
 import { passwordSchema } from '@/pages/EditBoard/schema/passwordSchema';
-import { MessagesResults, CardResults } from '@/types/recipients';
+import { MessagesResults } from '@/types/recipients';
 
 import { useFetchBoardData } from './data-access/useFetchBoardData';
 
@@ -64,7 +64,7 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
   const filteredMessages = useMemo(() => {
     if (!messages) return [];
 
-    const filtered = messages.filter((messageData: CardResults) => {
+    const filtered = messages.filter((messageData: MessagesResults) => {
       return selectedTab === 'all' || messageData.relationship === selectedTab;
     });
 
