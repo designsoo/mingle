@@ -2,8 +2,6 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getMessages } from '@/api/queryFunctions';
 
-const MESSAGES_PER_PAGE = 6;
-
 export const useGetMessages = (boardId: number) => {
   const {
     data: messageData,
@@ -15,13 +13,15 @@ export const useGetMessages = (boardId: number) => {
     queryKey: ['messages', boardId],
     queryFn: ({ pageParam }) => getMessages({ boardId, offset: pageParam }),
     initialPageParam: 0,
-    getNextPageParam: (lastPage, _, lastPageParam) => {
-      const nextPageParam = lastPageParam + MESSAGES_PER_PAGE;
-      return lastPage.length < MESSAGES_PER_PAGE ? undefined : nextPageParam;
+    getNextPageParam: (lastPage) => {
+      if (!lastPage.next) return;
+      const nextUrl = new URL(lastPage.next);
+      const offset = nextUrl.searchParams.get('offset');
+      return offset ? +offset : null;
     },
     select: (data) => ({
-      pages: data.pages.flatMap((page) => page),
       pageParams: data.pageParams,
+      pages: data.pages.flatMap((page) => page.results),
     }),
   });
 
