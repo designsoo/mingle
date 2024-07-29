@@ -14,7 +14,7 @@ export const getBoard = async (boardId: number) => {
 
 export const getMessages = async ({ boardId, offset }: { boardId: number; offset: number }) => {
   const response = await MESSAGES.get({ boardId, offset });
-  return response.data.results;
+  return response.data;
 };
 
 export const getReactions = async (boardId: number) => {
