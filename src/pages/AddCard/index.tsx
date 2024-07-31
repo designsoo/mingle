@@ -113,10 +113,7 @@ const AddCard = () => {
                   <h3 className='w-full text-bold-18'>Card Image</h3>
                   <label
                     style={{
-                      backgroundImage: `url(${preview})`,
-                      backgroundRepeat: 'no-repeat',
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center center',
+                      background: `url(${preview}) no-repeat center / cover`,
                     }}
                     htmlFor='photo'
                     className='flexbox-row-center base-transition group relative h-[300px] w-[260px] cursor-pointer overflow-hidden rounded-2xl border border-dashed border-neutral-800 hover:border-yellow-300'
