@@ -1,7 +1,4 @@
-import { useEffect } from 'react';
-
 import { PAPER_BACKGROUND_COLORS } from '@/constants';
-import { preloadImages } from '@/utils';
 
 interface BackgroundColorOptionsProps {
   selectedImage: string;
@@ -15,10 +12,6 @@ const BackgroundColorOptions = ({ selectedImage, onClick, setFile }: BackgroundC
     onClick(id, value, type);
   };
 
-  useEffect(() => {
-    preloadImages(PAPER_BACKGROUND_COLORS);
-  }, []);
-
   return (
     <ul className='mt-6 grid grid-cols-2 gap-4 md:grid-cols-4'>
       {PAPER_BACKGROUND_COLORS.map((color) => (
@@ -28,10 +21,7 @@ const BackgroundColorOptions = ({ selectedImage, onClick, setFile }: BackgroundC
             aria-label='background-color-options'
             onClick={() => handleColorOptionClick(color.id, color.value, color.type)}
             style={{
-              backgroundImage: `url(${color.value})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center center',
+              background: `url(${color.value}) no-repeat center / cover`,
             }}
             className='h-[160px] w-full overflow-hidden rounded-lg'
           >

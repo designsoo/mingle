@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { InputField, PrimaryButton, TabList } from 'mingle-ui';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 
-import { PAPER_BACKGROUND_COLORS, TAB_LIST } from '@/constants';
-import { DELIMITER } from '@/utils';
+import { PAPER_BACKGROUND_COLORS, PAPER_BACKGROUND_IMAGES, TAB_LIST } from '@/constants';
+import { DELIMITER, preloadImages } from '@/utils';
 
 import MetaData from '@/components/MetaData';
 import BackgroundColorOptions from '@/components/pages/createBoard/BackgroundColorOptions';
@@ -75,6 +75,10 @@ const CreateBoard = () => {
 
     postFormMutation(updatedFormData);
   };
+
+  useEffect(() => {
+    preloadImages(PAPER_BACKGROUND_IMAGES);
+  }, []);
 
   return (
     <>
