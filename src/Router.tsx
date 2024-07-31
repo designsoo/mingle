@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { ROUTER_PATH } from '@/constants';
 
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
+
 const Landing = lazy(() => import('@/pages/Landing'));
 const BoardList = lazy(() => import('@/pages/BoardList'));
 const CreateBoard = lazy(() => import('@/pages/CreateBoard'));
@@ -17,7 +19,7 @@ const { landing, createBoard, detailBoard, editBoard, addCard, boardList } = ROU
 const MyRouter = () => {
   return (
     <Router>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <Routes>
           <Route path={createBoard} element={<CreateBoard />} />
           <Route path={detailBoard} element={<DetailBoard />} />
