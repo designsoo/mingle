@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { PAPER_BACKGROUND_IMAGES, SVGS } from '@/constants';
-import { preloadImages } from '@/utils';
 
 import { getUploadUrl } from '@/pages/CreateBoard/data-access/cloudflareImageService';
 
@@ -56,10 +55,6 @@ const BackgroundImageOptions = ({ selectedImage, onClick, setFile, setUploadId }
     onClick(id, value, type);
   };
 
-  useEffect(() => {
-    preloadImages(PAPER_BACKGROUND_IMAGES);
-  }, []);
-
   return (
     <ul className='mt-6 grid grid-cols-2 gap-4 md:grid-cols-4'>
       <li className='base-transition h-[160px] w-full rounded-lg border border-neutral-700 hover:border-yellow-300'>
@@ -75,10 +70,7 @@ const BackgroundImageOptions = ({ selectedImage, onClick, setFile, setUploadId }
             aria-label='background-image-options'
             onClick={() => handleDefaultImageClick(image.id, image.value, image.type)}
             style={{
-              backgroundImage: `url(${image.value})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center center',
+              background: `url(${image.value}) no-repeat center / cover`,
             }}
             className='h-[160px] w-full overflow-hidden rounded-lg'
           >
