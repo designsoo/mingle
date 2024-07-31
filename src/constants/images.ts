@@ -20,6 +20,7 @@ import setting_active from '@/assets/ic-setting-active.svg';
 import setting from '@/assets/ic-setting.svg';
 import logo from '@/assets/mg-logo-color.svg';
 import footer_logo from '@/assets/mg-logo-gray.svg';
+import notfound from '@/assets/notFound-404.svg';
 import color_option_1 from '@/assets/png/mg-default-background-color-1.webp';
 import color_option_2 from '@/assets/png/mg-default-background-color-2.webp';
 import color_option_3 from '@/assets/png/mg-default-background-color-3.webp';
@@ -207,5 +208,9 @@ export const SVGS = {
       url: arrow_right,
       alt: 'arrow right icon',
     },
+  },
+  notfound: {
+    url: notfound,
+    alt: 'notfound icon',
   },
 };
