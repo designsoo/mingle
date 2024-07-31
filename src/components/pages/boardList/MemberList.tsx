@@ -30,10 +30,7 @@ const MemberList = ({ memberList, memberCount }: MemberListProps) => {
               <div
                 className='size-8 overflow-hidden rounded-full color-background-opacity-white-10'
                 style={{
-                  backgroundImage: `url(${member.profileImageURL})`,
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center center',
+                  background: `url(${member.profileImageURL}) no-repeat center / cover`,
                 }}
               ></div>
             </li>

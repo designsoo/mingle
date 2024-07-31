@@ -13,10 +13,7 @@ const PreviewBoard = ({ previewImgae, name }: PreviewBoardProps) => {
   return (
     <article
       style={{
-        backgroundImage: `url(${previewImgae})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
+        background: `url(${previewImgae}) no-repeat center / cover`,
       }}
       className='flex h-[300px] w-[260px] flex-col justify-end overflow-hidden rounded-2xl bg-neutral-800 p-4'
     >
