@@ -42,6 +42,7 @@ export type BoardResults = {
 };
 
 export type BoardListParams = {
-  sort?: string;
   limit?: number;
+  offset?: number;
+  sort?: string;
 };
