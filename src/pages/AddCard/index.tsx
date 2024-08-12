@@ -92,7 +92,7 @@ const AddCard = () => {
 
     if (file) {
       const uploadResponse = await uploadImageCloudflare(file, uploadId);
-      if (!uploadResponse.ok) return;
+      if (!uploadResponse?.ok) return;
 
       const checkResponse = await checkUploadStatus(uploadId);
       const imageUrl = checkResponse.result.variants[0];
@@ -102,8 +102,6 @@ const AddCard = () => {
 
     postCardMutation({ recipientId, cardForm });
   };
-
-  console.log('errors', errors);
 
   return (
     <>
