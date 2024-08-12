@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { MESSAGES } from '@/api/apiService';
+import { QUERY_KEYS } from '@/api/queryKey';
 
 export const useAddCard = (boardId: number) => {
   const queryClient = useQueryClient();
@@ -10,8 +11,8 @@ export const useAddCard = (boardId: number) => {
   const { mutate: postCardMutation, isPending: isPostCardLoading } = useMutation({
     mutationFn: MESSAGES.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['recipient', boardId] });
-      queryClient.invalidateQueries({ queryKey: ['messages', boardId] });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.getBoardInfo(boardId) });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.getMessages(boardId) });
       navigate(`/board/${boardId}`);
     },
     onError: () => {

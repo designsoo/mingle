@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getMessages } from '@/api/queryFunctions';
+import { QUERY_KEYS } from '@/api/queryKey';
 
 export const useGetMessages = (boardId: number) => {
   const {
@@ -10,7 +11,7 @@ export const useGetMessages = (boardId: number) => {
     isFetching,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ['messages', boardId],
+    queryKey: QUERY_KEYS.getMessages(boardId),
     queryFn: ({ pageParam }) => getMessages({ boardId, offset: pageParam }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
