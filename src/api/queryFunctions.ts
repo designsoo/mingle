@@ -2,9 +2,9 @@ import { BoardListParams } from '@/types/recipients';
 
 import { MESSAGES, RECIPIENTS } from './apiService';
 
-export const getBoardList = async ({ sort, limit }: BoardListParams) => {
-  const response = await RECIPIENTS.getBoardList(sort, limit);
-  return response.data.results;
+export const getBoardList = async ({ limit, offset, sort }: BoardListParams) => {
+  const response = await RECIPIENTS.getBoardList({ limit, offset, sort });
+  return response.data;
 };
 
 export const getBoard = async (boardId: number) => {
