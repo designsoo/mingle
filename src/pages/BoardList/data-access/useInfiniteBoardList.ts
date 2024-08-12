@@ -3,7 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { getBoardList } from '@/api/queryFunctions';
 import { BoardListParams } from '@/types/recipients';
 
-export const useGetBoards = ({ limit, sort }: BoardListParams) => {
+export const useInfiniteBoardList = ({ limit, sort }: BoardListParams) => {
   const {
     data: latestBoardData,
     fetchNextPage,
