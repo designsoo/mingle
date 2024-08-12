@@ -9,8 +9,8 @@ export const useCreateBoard = () => {
   const { mutate: postFormMutation, isPending: isCreateLoading } = useMutation({
     mutationFn: RECIPIENTS.post,
     onSuccess: (response) => {
-      const newBoardUrl = response.data.id;
-      navigate(`/board/${newBoardUrl}`);
+      const boardId = response.data.id;
+      navigate(`/board/${boardId}`);
     },
     onError: () => {
       alert('대시보드 생성에 실패했습니다. 다시 시도해 주세요.');
