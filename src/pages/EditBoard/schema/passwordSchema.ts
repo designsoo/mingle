@@ -6,6 +6,6 @@ export const passwordSchema = (inputValue: string) =>
   z.object({
     password: z
       .string()
-      .min(MIN_PASSWORD_LENGTH, 'The password must be four digits.')
+      .min(MIN_PASSWORD_LENGTH, 'Password must be exactly 4 characters')
       .refine((val) => val === inputValue, { message: 'The password does not match.' }),
   });
