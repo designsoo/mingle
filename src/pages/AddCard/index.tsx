@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Dropdown, InputField, Label, PrimaryButton } from 'mingle-ui';
 import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import ReactQuill from 'react-quill';
@@ -19,6 +20,8 @@ import {
   uploadImageCloudflare,
 } from '@/pages/CreateBoard/data-access/cloudflareImageService';
 
+import { addFormSchema } from './schema';
+
 const {
   add: { url, alt },
 } = SVGS;
@@ -34,6 +37,7 @@ const AddCard = () => {
   const recipientId = Number(params.id);
   const methods = useForm<FormData>({
     mode: 'all',
+    resolver: zodResolver(addFormSchema),
   });
 
   const quillRef = useRef<ReactQuill>(null);
@@ -99,6 +103,8 @@ const AddCard = () => {
     postCardMutation({ recipientId, cardForm });
   };
 
+  console.log('errors', errors);
+
   return (
     <>
       <MetaData title='Mingle | Add Card' />
@@ -148,9 +154,8 @@ const AddCard = () => {
                     name='name'
                     type='text'
                     placeholder='Name'
-                    errorMessage='Name is Required'
+                    errorMessage={errors.name?.message}
                     maxLength={13}
-                    isRequired
                     autoComplete='username'
                   />
                   <InputField
@@ -159,6 +164,7 @@ const AddCard = () => {
                     name='password'
                     type='password'
                     placeholder='● ● ● ●'
+                    errorMessage={errors.password?.message}
                     maxLength={4}
                     autoComplete='current-password'
                   />
