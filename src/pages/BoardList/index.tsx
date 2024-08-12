@@ -12,7 +12,7 @@ import NavigationBar from '@/components/ui/NavigationBar';
 import useInfiniteScrollObserver from '@/hooks/useInfiniteScrollObserver';
 
 import { useGetBoardList } from './data-access/useGetBoardList';
-import { useGetBoards } from './data-access/useGetBoards';
+import { useInfiniteBoardList } from './data-access/useInfiniteBoardList';
 
 const {
   arrow: { left, right },
@@ -29,7 +29,7 @@ const BoardList = () => {
     hasNextPage,
     isFetching: isLatestBoardsFetching,
     isFetchingNextPage,
-  } = useGetBoards({
+  } = useInfiniteBoardList({
     limit: LATEST_BOARD_LIMIT,
   });
   const infiniteScrollTriggerRef = useInfiniteScrollObserver({ hasNextPage, fetchNextPage });
