@@ -22,14 +22,8 @@ const SCROLL_SLIDER_WIDTH = 1140;
 const LATEST_BOARD_LIMIT = 8;
 
 const BoardList = () => {
-  const { data: popularBoards, isLoading: isPopularBoardsFetching } = useGetBoardList({ sort: 'like' });
-  const {
-    latestBoardData,
-    fetchNextPage,
-    hasNextPage,
-    isFetching: isLatestBoardsFetching,
-    isFetchingNextPage,
-  } = useInfiniteBoardList({
+  const { data: popularBoards, isLoading: isBoardsFetching } = useGetBoardList({ sort: 'like' });
+  const { latestBoardData, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBoardList({
     limit: LATEST_BOARD_LIMIT,
   });
   const infiniteScrollTriggerRef = useInfiniteScrollObserver({ hasNextPage, fetchNextPage });
@@ -87,7 +81,7 @@ const BoardList = () => {
             <div className='max-w-[1120px] overflow-x-scroll scroll-smooth pt-5 scrollbar-hide' ref={sliderRef}>
               <BoardCardList
                 boardList={popularBoards}
-                isLoading={isPopularBoardsFetching}
+                isLoading={isBoardsFetching}
                 isEmpty={isPopularBoardEmpty}
                 isPopular
               />
@@ -103,11 +97,11 @@ const BoardList = () => {
             <div className='max-w-[1120px] overflow-x-scroll scroll-smooth pt-5 scrollbar-hide'>
               <BoardCardList
                 boardList={filteredBoards}
-                isLoading={isLatestBoardsFetching}
+                isLoading={isBoardsFetching}
                 isEmpty={isLatestBoardEmpty}
                 isNextPageLoading={isFetchingNextPage}
-                triggerRef={infiniteScrollTriggerRef}
               />
+              <div ref={infiniteScrollTriggerRef} className='size-10 bg-transparent'></div>
             </div>
           </section>
         </main>
