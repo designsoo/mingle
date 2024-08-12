@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { InputField, PrimaryButton, TabList } from 'mingle-ui';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 
@@ -15,6 +16,8 @@ import NavigationBar from '@/components/ui/NavigationBar';
 import { checkUploadStatus, uploadImageCloudflare } from '@/pages/CreateBoard/data-access/cloudflareImageService';
 import { useCreateBoard } from '@/pages/CreateBoard/data-access/useCreateBoard';
 
+import { ceateFormSchema } from './schema';
+
 type FormValues = {
   name: string;
   password?: string;
@@ -24,6 +27,7 @@ type FormValues = {
 
 const CreateBoard = () => {
   const methods = useForm<FormValues>({
+    resolver: zodResolver(ceateFormSchema),
     mode: 'all',
     defaultValues: {
       name: '',
@@ -32,7 +36,12 @@ const CreateBoard = () => {
     },
   });
 
-  const { control, handleSubmit, setValue } = methods;
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = methods;
   const name = useWatch({
     control: control,
     name: 'name',
@@ -101,9 +110,8 @@ const CreateBoard = () => {
                     name='name'
                     type='text'
                     placeholder='Name'
-                    errorMessage='Name is Required'
+                    errorMessage={errors.name?.message}
                     maxLength={10}
-                    isRequired
                     autoComplete='username'
                   />
                   <InputField
@@ -112,6 +120,7 @@ const CreateBoard = () => {
                     name='password'
                     type='password'
                     placeholder='● ● ● ●'
+                    errorMessage={errors.password?.message}
                     maxLength={4}
                     autoComplete='current-password'
                   />
