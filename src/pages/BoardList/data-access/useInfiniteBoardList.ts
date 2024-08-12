@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getBoardList } from '@/api/queryFunctions';
+import { QUERY_KEYS } from '@/api/queryKey';
 import { BoardListParams } from '@/types/recipients';
 
 export const useInfiniteBoardList = ({ limit, sort }: BoardListParams) => {
@@ -11,7 +12,7 @@ export const useInfiniteBoardList = ({ limit, sort }: BoardListParams) => {
     isFetching,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ['recipient', limit, sort],
+    queryKey: QUERY_KEYS.getBoards({ limit, sort }),
     queryFn: ({ pageParam }) => getBoardList({ limit, offset: pageParam, sort }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
