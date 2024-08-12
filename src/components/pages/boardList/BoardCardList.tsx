@@ -1,5 +1,3 @@
-import { RefObject } from 'react';
-
 import { EmptyBoardCard } from 'mingle-ui';
 
 import { BoardResults } from '@/types/recipients';
@@ -9,21 +7,13 @@ import BoardCardListSkeleton from './BoardCardListSkeleton';
 
 interface BoardCardListProps {
   boardList: BoardResults[];
-  isLoading: boolean;
   isEmpty: boolean;
+  isLoading?: boolean;
   isNextPageLoading?: boolean;
-  triggerRef?: RefObject<HTMLDivElement>;
   isPopular?: boolean;
 }
 
-const BoardCardList = ({
-  boardList,
-  isLoading,
-  isNextPageLoading,
-  isEmpty,
-  triggerRef,
-  isPopular = false,
-}: BoardCardListProps) => {
+const BoardCardList = ({ boardList, isLoading, isEmpty, isNextPageLoading, isPopular = false }: BoardCardListProps) => {
   const boardListLayout = isPopular
     ? 'flex flex-row gap-5'
     : 'grid grid-cols-1 gap-x-5 gap-y-8 md:grid-cols-2 lg:grid-cols-4';
@@ -45,7 +35,6 @@ const BoardCardList = ({
           </li>
         ))}
       </ul>
-      <div ref={triggerRef} className='size-10 bg-transparent'></div>
       {isNextPageLoading && <BoardCardListSkeleton />}
     </>
   );
