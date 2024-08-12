@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-import { RECIPIENTS } from '@/api/recipients';
+import { RECIPIENTS } from '@/api/apiService';
 
 interface DeleteBoardResponse {
   message: string;

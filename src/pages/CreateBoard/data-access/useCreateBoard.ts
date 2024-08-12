@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
-import { RECIPIENTS } from '@/api/recipients';
+import { RECIPIENTS } from '@/api/apiService';
 
 export const useCreateBoard = () => {
   const navigate = useNavigate();

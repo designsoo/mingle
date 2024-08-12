@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { MESSAGES } from '@/api/recipients';
+import { MESSAGES } from '@/api/apiService';
 
 export const useDeleteCard = (boardId: number) => {
   const queryClient = useQueryClient();

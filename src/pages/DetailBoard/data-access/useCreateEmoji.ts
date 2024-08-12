@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { RECIPIENTS } from '@/api/recipients';
+import { RECIPIENTS } from '@/api/apiService';
 
 export const useCreateEmoji = (boardId: number) => {
   const queryClient = useQueryClient();

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
-import { MESSAGES } from '@/api/recipients';
+import { MESSAGES } from '@/api/apiService';
 
 export const useAddCard = (boardId: number) => {
   const queryClient = useQueryClient();
