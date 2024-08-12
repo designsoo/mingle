@@ -1,11 +1,12 @@
 import { RECIPIENTS_API, MESSAGE_API } from '@/constants';
 
-import { PostEmoji } from '@/types/recipients';
+import { BoardListParams, PostEmoji } from '@/types/recipients';
 
 import instance from './axiosInstance';
 
 export const RECIPIENTS = {
-  getBoardList: (sort?: string, limit?: number) => instance.get(RECIPIENTS_API, { params: { sort, limit } }),
+  getBoardList: ({ limit, offset, sort }: BoardListParams) =>
+    instance.get(RECIPIENTS_API, { params: { limit, offset, sort } }),
   getBoard: (recipientId: number) => instance.get(`${RECIPIENTS_API}${recipientId}/`),
   post: (data: object) => instance.post(RECIPIENTS_API, data),
   deleteBoard: (recipientId: number) => instance.delete(`${RECIPIENTS_API}${recipientId}/`),
