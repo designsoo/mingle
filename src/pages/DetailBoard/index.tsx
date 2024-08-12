@@ -25,7 +25,7 @@ import { useDeleteBoard } from '@/pages/EditBoard/data-access/useDeleteBoard';
 import { passwordSchema } from '@/pages/EditBoard/schema/passwordSchema';
 import { MessagesResults } from '@/types/recipients';
 
-import { useFetchBoardData } from './data-access/useFetchBoardData';
+import { useGetBoardData } from './data-access/useGetBoardData';
 
 const { kakao } = SVGS;
 
@@ -39,7 +39,7 @@ const DetailBoard = ({ isEdit = false }: DetailBoardProps) => {
   const navigate = useNavigate();
   const dropdownPosition = isEdit ? 'absolute-y-center right-0 z-10' : 'absolute right-[44px] z-10 max-w-[112px]';
 
-  const { boardData, isBoardDataLoading } = useFetchBoardData(boardId);
+  const { boardData, isBoardDataLoading } = useGetBoardData(boardId);
   const { messageData, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetMessages(boardId);
   const trigger = useInfiniteScrollObserver({ hasNextPage, fetchNextPage });
   const { isDeleteLoading, deleteBoardMutation } = useDeleteBoard();
