@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { InputField, PrimaryButton, TabList } from 'mingle-ui';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
@@ -17,20 +17,26 @@ import { useCreateBoard } from '@/pages/CreateBoard/data-access/useCreateBoard';
 
 type FormValues = {
   name: string;
+  password?: string;
   backgroundColor: string;
   backgroundImageURL: null | string;
 };
 
 const CreateBoard = () => {
-  const methods = useForm({
+  const methods = useForm<FormValues>({
     mode: 'all',
+    defaultValues: {
+      name: '',
+      backgroundColor: PAPER_BACKGROUND_COLORS[0].id,
+      backgroundImageURL: null,
+    },
   });
-  const { control, handleSubmit, getValues } = methods;
+
+  const { control, handleSubmit, setValue } = methods;
   const name = useWatch({
     control: control,
     name: 'name',
   });
-
   const { postFormMutation, isCreateLoading } = useCreateBoard();
 
   const [selectedTab, setSelectedTab] = useState(TAB_LIST[0].id);
@@ -38,43 +44,35 @@ const CreateBoard = () => {
   const [preview, setPreview] = useState(PAPER_BACKGROUND_COLORS[0].value);
   const [file, setFile] = useState<File | null>(null);
   const [uploadId, setUploadId] = useState('');
-  const [formData, setFormData] = useState<FormValues>({
-    name: '',
-    backgroundColor: 'blue',
-    backgroundImageURL: null,
-  });
 
-  const handleImageClick = (id: string, value: string, type: string) => {
-    setSelectedOption(id);
-    setPreview(value);
-    setFormData((prev) => ({
-      ...prev,
-      backgroundColor: type === 'backgroundColor' ? id : prev.backgroundColor,
-      backgroundImageURL: type === 'backgroundImageURL' ? value : null,
-    }));
-  };
+  const handleImageClick = useCallback(
+    (id: string, value: string, type: string) => {
+      setSelectedOption(id);
+      setPreview(value);
+      setValue(
+        type === 'backgroundColor' ? 'backgroundColor' : 'backgroundImageURL',
+        type === 'backgroundColor' ? id : value,
+      );
+    },
+    [setValue],
+  );
 
-  const onSubmit = async () => {
-    const toName = getValues('name');
-    const password = getValues('password');
-    const newName = [name, password].join(DELIMITER);
-    const updatedFormData = {
-      ...formData,
-      name: password ? newName : toName,
-    };
+  const onSubmit = useCallback(
+    async (data: FormValues) => {
+      data.name = data.password ? [data.name, data.password].join(DELIMITER) : data.name;
 
-    if (file) {
-      const uploadResponse = await uploadImageCloudflare(file, uploadId);
-      if (!uploadResponse.ok) return;
+      if (file) {
+        const uploadResponse = await uploadImageCloudflare(file, uploadId);
+        if (!uploadResponse.ok) return;
 
-      const checkResponse = await checkUploadStatus(uploadId);
-      const imageUrl = checkResponse.result.variants[0];
+        const checkResponse = await checkUploadStatus(uploadId);
+        data.backgroundImageURL = checkResponse.result.variants[0];
+      }
 
-      updatedFormData.backgroundImageURL = imageUrl;
-    }
-
-    postFormMutation(updatedFormData);
-  };
+      postFormMutation(data);
+    },
+    [file, uploadId, postFormMutation],
+  );
 
   useEffect(() => {
     preloadImages(PAPER_BACKGROUND_IMAGES);
