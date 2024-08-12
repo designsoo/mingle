@@ -72,7 +72,7 @@ const CreateBoard = () => {
 
       if (file) {
         const uploadResponse = await uploadImageCloudflare(file, uploadId);
-        if (!uploadResponse.ok) return;
+        if (!uploadResponse?.ok) return;
 
         const checkResponse = await checkUploadStatus(uploadId);
         data.backgroundImageURL = checkResponse.result.variants[0];
